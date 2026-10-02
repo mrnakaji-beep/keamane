@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>覚えず受かるケアマネ試験｜ひっかけ対策問題集</title>
+<style>
+:root{
+  --ink:#1c2733; --sub:#5a6775; --base:#f3f6f9; --card:#ffffff; --line:#d8e0e8;
+  --main:#2b5b86; --main-d:#1f4467; --ok:#2a7a55; --ok-bg:#e6f4ec;
+  --ng:#b3462f; --ng-bg:#fbeae6; --warn:#b9780f; --mark:#fff0a8;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--base); color:var(--ink);
+  font-family:"Yu Gothic","YuGothic","Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+  font-size:16px; line-height:1.7; -webkit-text-size-adjust:100%;
+  padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+}
+.wrap{max-width:560px; margin:0 auto; padding:16px 16px 48px}
+h1{font-size:21px; line-height:1.4; margin:8px 0 4px}
+h2{font-size:17px; margin:24px 0 8px}
+p{margin:8px 0}
+.sub{color:var(--sub); font-size:14px}
+.card{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px; margin-top:12px}
+button{font:inherit; cursor:pointer}
+.btn{display:block; width:100%; border:0; border-radius:12px; padding:14px; background:var(--main); color:#fff; font-weight:700; font-size:17px; margin-top:12px}
+.btn:active{background:var(--main-d)}
+.btn[disabled]{background:#b9c5d1; cursor:default}
+.btn.ghost{background:#fff; color:var(--main); border:1px solid var(--main); font-weight:600; font-size:15px; padding:11px}
+.link{background:none; border:0; color:var(--sub); text-decoration:underline; font-size:13px; padding:8px 0; margin-top:6px}
+:focus-visible{outline:3px solid #f2b84b; outline-offset:2px}
+.hidden{display:none}
+.notice{background:#fff6e0; border:1px solid #f0d9a0; border-radius:10px; padding:8px 12px; font-size:14px; margin:8px 0}
+.notice.good{background:var(--ok-bg); border-color:#b7dcc6}
+
+.top{position:sticky; top:0; background:var(--base); padding:10px 0 8px; z-index:2}
+.topline{display:flex; justify-content:space-between; align-items:baseline; font-size:14px; color:var(--sub)}
+.bar{height:6px; background:var(--line); border-radius:3px; overflow:hidden; margin-top:6px}
+.bar i{display:block; height:100%; background:var(--main); transition:width .25s}
+.stem{font-size:17.5px; font-weight:700; line-height:1.65; margin:6px 0 14px}
+mark{background:var(--mark); padding:0 2px; border-radius:3px}
+.opt{display:flex; gap:10px; width:100%; text-align:left; background:#fff; border:1.5px solid var(--line); border-radius:12px; padding:12px 14px; margin-bottom:10px; color:var(--ink); line-height:1.6; font-size:15.5px}
+.opt:active{background:#eef3f8}
+.opt .no{flex:none; width:22px; height:22px; border-radius:50%; background:#e5eef6; color:var(--main-d); font-size:13px; font-weight:700; text-align:center; line-height:22px; margin-top:2px}
+.opt[disabled]{cursor:default}
+.opt.right{border-color:var(--ok); background:var(--ok-bg)}
+.opt.wrong{border-color:var(--ng); background:var(--ng-bg)}
+.note{margin:-4px 0 12px 32px; font-size:14px; line-height:1.6}
+.note b.t{color:var(--ok)}
+.note b.f{color:var(--ng)}
+.tagk{display:inline-block; font-size:12px; font-weight:700; color:var(--warn); background:#fff3d6; border-radius:6px; padding:0 8px; margin-left:4px; white-space:nowrap}
+.verdict{border-radius:12px; padding:12px 14px; margin:6px 0 14px; font-size:15px}
+.verdict.ok{background:var(--ok-bg); border:1px solid #b7dcc6}
+.verdict.ng{background:var(--ng-bg); border:1px solid #efc4ba}
+.verdict strong{display:block; font-size:17px; margin-bottom:2px}
+
+.tcard{background:#fff; border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin-top:10px}
+.tcard h3{margin:0 0 2px; font-size:16px; color:var(--main-d)}
+.tcard .tip{font-size:14.5px}
+.tcard .ex{font-size:13.5px; color:var(--sub); margin-top:4px}
+.row{display:flex; justify-content:space-between; font-size:15px; font-weight:700}
+.track{position:relative; height:12px; background:#e6ecf2; border-radius:6px; margin:6px 0 12px}
+.track i{position:absolute; left:0; top:0; bottom:0; border-radius:6px; background:var(--warn)}
+.score{text-align:center; padding:6px 0 2px}
+.score b{font-size:48px; color:var(--main); line-height:1.1}
+.score span{font-size:18px; color:var(--sub)}
+textarea.copybox{position:absolute; left:-9999px}
+.footlinks{display:flex; justify-content:space-between; margin-top:10px}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+
+<script>
+(function(){
+"use strict";
+
+var KEY = "keamane10_hikkake_v1";
+
+// ひっかけの8つの型
+var TYPES = [
+ {n:"否定問いの読み違い", tip:"「誤っているもの」を「正しいもの」と読んでしまう。設問の最後の言葉に必ず印をつけ、「誤りを1つ探す」と頭に置いてから選択肢を読む。", ex:"4つは正しい記述で、1つだけ誤り。正しい記述を選んでしまう。"},
+ {n:"断定語", tip:"「必ず・すべて・のみ・常に・いかなる場合も」は、例外が1つあれば誤りになる。見つけたらまず疑い、例外がないか考える。", ex:"「ケアプランには介護保険サービスのみを位置づける」→ 家族の支援なども位置づける。"},
+ {n:"主体のすり替え", tip:"誰が行うかを入れ替えてくる。指定・認定・審査・委嘱・立入調査など、「誰が」をセットで言えるようにしておく。", ex:"介護給付費の審査・支払は市町村ではなく国保連。"},
+ {n:"数字・期間のすり替え", tip:"似た数字を入れ替える。数字は単独ではなく、「6か月と12か月」のように対になるものを一緒に覚える。", ex:"新規認定は6か月、更新認定は12か月。"},
+ {n:"似た用語の取り違え", tip:"ペアになる用語の違いを説明できるようにする。入れ替えた文章を作られると、違和感なく読めてしまう。", ex:"予防給付と介護給付、後見・保佐・補助、販売と貸与、一次判定と二次判定。"},
+ {n:"原則と例外の混同", tip:"「原則」だけ、または「例外」だけを述べた文は誤りになりやすい。原則とあわせて、例外があるものを区別して覚える。", ex:"特養は原則要介護3以上だが、特例入所がある。"},
+ {n:"対象範囲の取り違え", tip:"誰が、どのサービスが対象かをずらす。「対象外」になるものは、リストで覚えておく。", ex:"居宅療養管理指導は区分支給限度基準額の対象外。特定疾病の要件は第2号のみ。"},
+ {n:"一見もっともらしい常識", tip:"感覚では正しそうでも、医療・ケアの決まりでは誤りの選択肢。「なぜそうするのか」の理由で判断する。", ex:"褥瘡の赤い部分は強くマッサージしない。むせる人には、とろみをつける。"}
+];
+
+// o: [選択肢, 正しい記述なら1・誤りなら0, ひっかけの型(誤りの記述のみ), 解説]
+var Q = [
+ {neg:0,s:"介護保険の給付に関する次の記述のうち、正しいものはどれか。",o:[
+  ["住宅改修費は、原則として、いったん全額を支払い、後で払い戻しを受ける（償還払い）。",1,-1,"福祉用具購入と住宅改修は償還払いが原則です（受領委任払いを行う市町村もあります）。"],
+  ["居宅療養管理指導は、区分支給限度基準額の範囲内で利用する。",0,6,"居宅療養管理指導は、区分支給限度基準額の対象外です。"],
+  ["居宅介護支援を利用すると、利用者は費用の1割を負担する。",0,4,"居宅介護支援は利用者負担がなく、全額が保険給付です。他のサービスの1割負担と混同させる型です。"],
+  ["要支援1・2の人は、介護給付によるサービスを受ける。",0,4,"要支援は予防給付、要介護は介護給付です。"],
+  ["福祉用具貸与は、すべての品目を要介護1の人から利用できる。",0,1,"「すべて」に注意。要介護1などの軽度者は、特殊寝台など一部の品目が原則対象外です。"]]},
+ {neg:1,s:"地域包括支援センターの業務に関する次の記述のうち、誤っているものはどれか。",o:[
+  ["要介護認定の審査判定を行う。",0,2,"審査判定は、市町村に置かれる介護認定審査会が行います。「誰が行うか」のすり替えです。"],
+  ["高齢者への総合相談支援を行う。",1,-1,"正しい記述です。包括的支援事業のひとつです。"],
+  ["高齢者の権利擁護（虐待の防止など）を行う。",1,-1,"正しい記述です。"],
+  ["地域のケアマネジャーを支援する（包括的・継続的ケアマネジメント支援）。",1,-1,"正しい記述です。"],
+  ["要支援者などへの介護予防ケアマネジメントを行う。",1,-1,"正しい記述です。"]]},
+ {neg:0,s:"要介護認定に関する次の記述のうち、正しいものはどれか。",o:[
+  ["申請に対する処分は、原則として申請から30日以内に行う。",1,-1,"正しい記述です。"],
+  ["新規認定の有効期間は、原則として12か月である。",0,3,"新規認定は原則6か月、更新認定が原則12か月です。"],
+  ["更新認定の有効期間は、原則として6か月である。",0,3,"更新認定は原則12か月です。新規と更新の数字を入れ替える型です。"],
+  ["第2号被保険者は、原因を問わず、心身の状態が悪くなれば要介護認定を受けられる。",0,6,"第2号は、特定疾病が原因の場合に限られます。"],
+  ["有効期間中は、いかなる場合も区分変更の申請はできない。",0,1,"「いかなる場合も」は疑います。状態が変化したときは、有効期間中でも区分変更申請ができます。"]]},
+ {neg:0,s:"事業者の指定等に関する次の記述のうち、正しいものはどれか。",o:[
+  ["地域密着型サービス事業者の指定は、市町村長が行う。",1,-1,"正しい記述です。"],
+  ["居宅介護支援事業者の指定は、都道府県知事が行う。",0,2,"居宅介護支援事業者の指定は、市町村長が行います。"],
+  ["介護老人福祉施設（地域密着型を除く）の指定は、市町村長が行う。",0,2,"都道府県知事が行います（地域密着型介護老人福祉施設は市町村長）。"],
+  ["介護給付費の審査・支払は、市町村が行う。",0,2,"審査・支払は国民健康保険団体連合会が行います。"],
+  ["介護認定審査会の委員は、都道府県知事が任命する。",0,2,"市町村長が任命します。"]]},
+ {neg:0,s:"居宅介護支援に関する次の記述のうち、正しいものはどれか。",o:[
+  ["特段の事情がない限り、少なくとも1月に1回、利用者の居宅を訪問して面接する。",1,-1,"正しい記述です（一定の要件でテレビ電話等を活用できる特例があります）。"],
+  ["利用者の居宅への訪問と面接は、3か月に1回でよい。",0,3,"少なくとも1月に1回です。"],
+  ["ケアプランの原案は、利用者が口頭で了解すれば、同意を文書で得なくても交付できる。",0,7,"手間を省けそうに見えますが、原案は説明し、文書による同意を得てから交付します。"],
+  ["サービス担当者会議は、新規作成のときにのみ開催する。",0,1,"「のみ」に注意。更新認定や区分変更認定のときなども開催します。"],
+  ["特定事業所集中減算は、同一事業者への紹介が正当な理由なく60%を超えたときに適用される。",0,3,"80%を超えたときです。"]]},
+ {neg:0,s:"高齢者の疾患とケアに関する次の記述のうち、適切なものはどれか。",o:[
+  ["心不全では、数日で急に体重が増えたときに悪化を疑う。",1,-1,"体液がたまるため、急な体重増加やむくみ、息切れは悪化のサインです。"],
+  ["褥瘡で赤くなった部分は、血行をよくするために強くマッサージする。",0,7,"一見よさそうですが、発赤部のマッサージは皮膚を傷めるため避けます。"],
+  ["糖尿病の人が冷や汗や手の震えを訴えたときは、必ずインスリンを追加で注射する。",0,1,"「必ず」に注意。低血糖の症状なので、意識があればブドウ糖などの糖分をとります。"],
+  ["高齢者は、発熱がなければ感染症ではないと判断できる。",0,7,"高齢者は感染症でも熱が出にくいことがあります。"],
+  ["脳梗塞が疑われても、症状が軽ければ翌日の受診でよい。",0,7,"脳卒中は時間との勝負です。すぐに救急要請します。"]]},
+ {neg:1,s:"認知症に関する次の記述のうち、誤っているものはどれか。",o:[
+  ["記憶障害は、行動・心理症状（BPSD）に分類される。",0,4,"記憶障害は中核症状です。中核症状とBPSDの取り違えです。"],
+  ["レビー小体型認知症では、幻視がみられやすい。",1,-1,"正しい記述です。"],
+  ["血管性認知症では、症状が段階的に進むことがある。",1,-1,"正しい記述です。"],
+  ["前頭側頭型認知症では、人格変化や常同行動がみられやすい。",1,-1,"正しい記述です。"],
+  ["アルツハイマー型認知症では、初期から記憶障害が目立ちやすい。",1,-1,"正しい記述です。"]]},
+ {neg:0,s:"成年後見制度に関する次の記述のうち、正しいものはどれか。",o:[
+  ["任意後見契約は、公正証書で結ぶ。",1,-1,"正しい記述です。"],
+  ["後見開始の審判は、市町村長が行う。",0,2,"審判を行うのは家庭裁判所です（市町村長は申立てができる立場です）。"],
+  ["後見人は、本人の居住用不動産を、自分の判断だけで売却できる。",0,7,"本人の生活への影響が大きいため、家庭裁判所の許可が必要です。"],
+  ["補助は、判断能力が最も不十分な人が対象である。",0,4,"最も不十分なのは後見です。後見・保佐・補助の取り違えです。"],
+  ["日常生活自立支援事業は、判断能力がまったくない人が対象である。",0,6,"契約の内容を判断できる人が対象です。判断が難しい場合は成年後見制度です。"]]},
+ {neg:0,s:"特別養護老人ホーム（介護老人福祉施設）に関する次の記述のうち、正しいものはどれか。",o:[
+  ["新規入所は原則として要介護3以上だが、やむを得ない事情があれば要介護1・2でも特例入所できる。",1,-1,"原則と特例の両方を押さえた記述です。"],
+  ["新規入所は、要介護1以上であれば、原則として誰でもできる。",0,5,"原則は要介護3以上です。原則と特例の混同です。"],
+  ["要支援の人も、原則として入所できる。",0,6,"要支援は入所の対象外です。"],
+  ["施設サービス計画は、居宅介護支援事業所のケアマネジャーが作成する。",0,2,"施設の介護支援専門員が作成します。"],
+  ["食費・居住費は、保険給付の対象で、原則1割負担である。",0,6,"食費・居住費は原則自己負担で、低所得者には補足給付があります。"]]},
+ {neg:0,s:"福祉用具に関する次の記述のうち、正しいものはどれか。",o:[
+  ["腰掛便座は、特定福祉用具販売の対象である。",1,-1,"正しい記述です。"],
+  ["車いすは、特定福祉用具販売の対象である。",0,4,"車いすは貸与の対象です。販売と貸与の取り違えです。"],
+  ["特殊寝台は、特定福祉用具販売の対象である。",0,4,"特殊寝台は貸与の対象です。"],
+  ["特定福祉用具販売の支給限度基準額は、同一年度で20万円である。",0,3,"10万円です。住宅改修（20万円）との数字の入れ替えです。"],
+  ["福祉用具購入費は、現物給付で、購入時に1割負担分のみを支払えばよい。",0,4,"償還払いが原則です。"]]},
+ {neg:0,s:"利用者負担に関する次の記述のうち、正しいものはどれか。",o:[
+  ["同じ月の利用者負担が上限額を超えたときは、高額介護サービス費が支給される。",1,-1,"正しい記述です。"],
+  ["高額介護サービス費は、施設の食費と居住費も対象となる。",0,6,"食費・居住費・日常生活費は対象外です。"],
+  ["補足給付（特定入所者介護サービス費）は、在宅サービスの利用者も対象となる。",0,6,"施設入所や短期入所の食費・居住費が対象です。"],
+  ["利用者負担の割合は、所得にかかわらず、すべての人が1割である。",0,1,"「すべて」「かかわらず」に注意。所得に応じて1〜3割です。"],
+  ["区分支給限度基準額を超えた分も、保険給付の対象となり、1割負担でよい。",0,7,"超えた分は全額自己負担です。"]]},
+ {neg:1,s:"訪問看護に関する次の記述のうち、誤っているものはどれか。",o:[
+  ["訪問看護の利用には、市町村長の許可が必要である。",0,2,"必要なのは、主治医の訪問看護指示書です。"],
+  ["主治医が交付する訪問看護指示書にもとづいて行われる。",1,-1,"正しい記述です。"],
+  ["末期の悪性腫瘍の人の訪問看護は、医療保険が適用される。",1,-1,"正しい記述です。"],
+  ["訪問看護は、訪問看護ステーションだけでなく、病院や診療所から行われる場合もある。",1,-1,"正しい記述です。"],
+  ["看護職員のほか、理学療法士などが訪問してリハビリを行う場合がある。",1,-1,"正しい記述です。"]]},
+ {neg:0,s:"バイタルサインや検査値に関する次の記述のうち、正しいものはどれか。",o:[
+  ["成人の安静時の脈拍は、1分間に60〜100回が目安である。",1,-1,"正しい記述です。"],
+  ["診察室血圧は、120/80mmHg以上で高血圧と判定される。",0,3,"140/90mmHg以上です。"],
+  ["HbA1cが5.0%以上であれば、糖尿病型と判定される。",0,3,"6.5%以上です。"],
+  ["BMI25以上は、低栄養のリスクの目安となる。",0,4,"低栄養のリスクの目安は18.5未満です。低体重と肥満の取り違えです。"],
+  ["改訂長谷川式簡易知能評価スケール（HDS-R）は、100点満点である。",0,3,"30点満点です。"]]},
+ {neg:1,s:"高齢者虐待防止法に関する次の記述のうち、誤っているものはどれか。",o:[
+  ["養護者による虐待を発見した場合の通報先は、都道府県である。",0,2,"通報先は市町村です。"],
+  ["経済的虐待は、虐待の類型に含まれる。",1,-1,"正しい記述です。"],
+  ["養護者による虐待で、生命・身体に重大な危険が生じているときは、速やかに通報しなければならない。",1,-1,"正しい記述です。"],
+  ["市町村長は、必要に応じて担当職員に立入調査をさせることができる。",1,-1,"正しい記述です。"],
+  ["養介護施設従事者等による虐待も、この法律の対象である。",1,-1,"正しい記述です。"]]},
+ {neg:0,s:"介護保険の被保険者に関する次の記述のうち、正しいものはどれか。",o:[
+  ["第2号被保険者は、特定疾病が原因で要介護状態等になった場合に給付を受けられる。",1,-1,"正しい記述です。"],
+  ["第1号被保険者は、特定疾病が原因でなければ給付を受けられない。",0,6,"特定疾病の要件があるのは第2号被保険者です。"],
+  ["第2号被保険者の保険料は、年金から天引きされる。",0,4,"第2号は、加入する医療保険の保険料とあわせて徴収されます。年金天引きは第1号の特別徴収です。"],
+  ["第2号被保険者の資格は、40歳の誕生日当日に取得する。",0,3,"誕生日の前日です。"],
+  ["市町村内に住所があれば、年齢や医療保険の加入にかかわらず、すべての人が被保険者である。",0,1,"「すべての人」に注意。65歳以上、または40〜64歳の医療保険加入者が被保険者です。"]]},
+ {neg:1,s:"在宅での医療・ケアに関する次の記述のうち、誤っているものはどれか。",o:[
+  ["在宅酸素療法中は、火気から離す必要はなく、ガスコンロのそばで使用してもよい。",0,7,"酸素は火を強く燃え上がらせるため、火気から2m以上離します。"],
+  ["在宅酸素療法の流量は、医師の指示どおりにする。",1,-1,"正しい記述です。"],
+  ["口腔ケアは、誤嚥性肺炎の予防に有効である。",1,-1,"正しい記述です。"],
+  ["ノロウイルスによる嘔吐物の処理には、次亜塩素酸ナトリウムを用いる。",1,-1,"正しい記述です。"],
+  ["褥瘡の予防には、体位変換と除圧が有効である。",1,-1,"正しい記述です。"]]},
+ {neg:0,s:"居宅サービス計画に関する次の記述のうち、適切なものはどれか。",o:[
+  ["原案は、課題分析（アセスメント）の結果と利用者の希望にもとづいて作成する。",1,-1,"正しい記述です。"],
+  ["ケアプランには、必ず介護保険のサービスのみを位置づけなければならない。",0,1,"「必ず」「のみ」に注意。家族の支援や地域の資源（インフォーマルサポート）も位置づけます。"],
+  ["利用者が希望すれば、どのサービスも限度額に関係なく保険給付で利用できる。",0,1,"限度額を超えた分は全額自己負担です（「どの」「関係なく」に注意）。"],
+  ["モニタリングの結果は、記録しなくてよい。",0,7,"モニタリングは少なくとも1月に1回行い、結果を記録します。"],
+  ["サービス担当者会議は、利用者の同意があれば、いかなる場合も開催しなくてよい。",0,5,"原則は開催です。やむを得ない理由があるときに限り、担当者への照会で代えられます（「いかなる場合も」にも注意）。"]]},
+ {neg:0,s:"生活保護に関する次の記述のうち、正しいものはどれか。",o:[
+  ["保護の実施機関は、福祉事務所である。",1,-1,"正しい記述です。"],
+  ["介護保険サービスの利用者負担分は、医療扶助でまかなわれる。",0,4,"介護扶助でまかなわれます。"],
+  ["保護は、資産や能力を活用する前に受けることができる。",0,7,"補足性の原理により、資産や能力などを活用してもなお不足する部分を補います。"],
+  ["介護扶助は、現金で給付されるのが原則である。",0,4,"介護扶助は現物給付が原則です。"],
+  ["保護費は、全額が国の負担である。",0,3,"国が4分の3、地方が4分の1です。"]]},
+ {neg:0,s:"介護保険施設等に関する次の記述のうち、正しいものはどれか。",o:[
+  ["介護老人保健施設は、在宅復帰・在宅療養支援を目的とする。",1,-1,"正しい記述です。"],
+  ["介護医療院は、在宅復帰のためのリハビリを主な目的とする施設である。",0,4,"介護医療院は、長期療養と生活の場を提供する施設です。在宅復帰を目的とするのは老健です。"],
+  ["介護老人福祉施設は、病状が不安定な人に集中的な医療を行う施設である。",0,4,"生活の場として介護を行う施設で、医療が中心ではありません。"],
+  ["介護老人保健施設の入所者のケアプランは、居宅介護支援事業所のケアマネジャーが作成する。",0,2,"施設の介護支援専門員が作成します。"],
+  ["特定施設入居者生活介護は、介護保険施設の一つである。",0,4,"居宅サービスのひとつです。介護保険施設は、介護老人福祉施設・介護老人保健施設・介護医療院です。"]]},
+ {neg:0,s:"次の記述のうち、正しいものはどれか。",o:[
+  ["住宅改修の支給限度基準額は、原則として20万円である。",1,-1,"正しい記述です。"],
+  ["介護休業は、対象家族1人につき通算180日まで取得できる。",0,3,"通算93日です。"],
+  ["介護支援専門員証の有効期間は、3年である。",0,3,"5年です。"],
+  ["民生委員は、都道府県知事が委嘱する。",0,2,"厚生労働大臣が委嘱します。"],
+  ["第1号被保険者は、60歳以上の住民である。",0,3,"65歳以上です。"]]},
+ {neg:1,s:"要介護認定に関する次の記述のうち、誤っているものはどれか。",o:[
+  ["一次判定は、介護認定審査会が行う。",0,4,"一次判定はコンピュータ判定で、二次判定を介護認定審査会が行います。"],
+  ["二次判定は、介護認定審査会が行う。",1,-1,"正しい記述です。"],
+  ["審査判定は、認定調査の結果と主治医意見書をもとに行われる。",1,-1,"正しい記述です。"],
+  ["認定には有効期間が定められている。",1,-1,"正しい記述です。"],
+  ["認定結果に不服があるときは、都道府県の介護保険審査会に審査請求できる。",1,-1,"正しい記述です。"]]},
+ {neg:0,s:"嚥下障害や口腔ケアに関する次の記述のうち、適切なものはどれか。",o:[
+  ["嚥下障害のある人の食事では、座位で軽くあごを引く姿勢が適切である。",1,-1,"正しい記述です。"],
+  ["飲み込みにくい人には、水やお茶のようなさらさらした水分がいちばん安全である。",0,7,"むせやすいため、とろみをつけるなどの工夫をします。"],
+  ["食事中にむせたら、すぐにあおむけに寝かせて休ませる。",0,7,"あおむけは誤嚥しやすい姿勢です。"],
+  ["食事をとっていない人には、口腔ケアは必要ない。",0,7,"口の中の細菌は増えるため、経口摂取していなくても口腔ケアは必要です。"],
+  ["義歯は、必ず装着したまま就寝する。",0,1,"「必ず」に注意。就寝時は外して清潔に保管するのが一般的です。"]]},
+ {neg:0,s:"認知症の人への対応として、適切なものはどれか。",o:[
+  ["本人のペースに合わせ、安心できる環境で穏やかに話しかける。",1,-1,"正しい記述です。"],
+  ["間違いは、その場で必ず指摘して訂正する。",0,1,"「必ず」に注意。否定や訂正は、不安や混乱を強めることがあります。"],
+  ["徘徊があるときは、常に部屋に鍵をかけて外出できないようにする。",0,1,"「常に」に注意。施錠による行動の制限は身体拘束にあたり得るため、原則として行いません。"],
+  ["本人は何も分からないので、説明せずにケアを進める。",0,7,"本人にも分かる言葉で説明し、納得を得る姿勢が大切です。"],
+  ["同じ話をくり返すときは、そのたびに叱って覚えさせる。",0,7,"叱っても改善せず、不安を強めます。"]]},
+ {neg:1,s:"居宅介護支援に関する次の記述のうち、誤っているものはどれか。",o:[
+  ["利用者は、居宅介護支援の費用の1割を負担する。",0,4,"居宅介護支援は、利用者負担がありません。他のサービスの1割負担との混同です。"],
+  ["特段の事情がない限り、少なくとも1月に1回、利用者の居宅を訪問して面接する。",1,-1,"正しい記述です。"],
+  ["サービス担当者会議は、更新認定や区分変更認定のときにも開催する。",1,-1,"正しい記述です。"],
+  ["ケアプランの原案は、利用者または家族に説明し、文書で同意を得てから交付する。",1,-1,"正しい記述です。"],
+  ["居宅介護支援事業所の管理者は、原則として主任介護支援専門員である。",1,-1,"正しい記述です（経過措置期間がある事業所もあります）。"]]}
+];
+
+var app = document.getElementById("app");
+var D = null;
+
+/* ---------- util ---------- */
+function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+function shuffle(a){ a=a.slice(); for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+function ld(k){ try{ var s=localStorage.getItem(k); return s?JSON.parse(s):null; }catch(e){ return null; } }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(D)); }catch(e){} }
+function userName(){
+  var a=ld("keamane10_drill_v1"); if(a && a.name) return a.name;
+  var b=ld("keamane10_day1_v1"); if(b && b.name) return b.name;
+  return "";
+}
+function copyText(txt, cb){
+  var done=function(){ if(cb) cb(); };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(done, function(){ fb(txt); done(); });
+  }else{ fb(txt); done(); }
+  function fb(t){
+    var ta=document.createElement("textarea"); ta.className="copybox"; ta.value=t;
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand("copy"); }catch(e){}
+    document.body.removeChild(ta);
+  }
+}
+function evalQ(q, oi){
+  var o=q.o[oi];
+  var correct = q.neg ? (o[1]===0) : (o[1]===1);
+  return {correct:correct, k: correct ? -1 : (q.neg ? 0 : o[2])};
+}
+function stemHtml(q, reveal){
+  var t=esc(q.s);
+  if(reveal) t=t.replace(/(誤っている|正しい|適切な)/, "<mark>$1</mark>");
+  return t;
+}
+
+/* ---------- state ---------- */
+function initD(){ return {falls:[0,0,0,0,0,0,0,0], n:0, right:0, qs:{}, sess:null}; }
+function weakTypes(){
+  var arr=[]; for(var k=0;k<8;k++){ if(D.falls[k]>0) arr.push(k); }
+  arr.sort(function(a,b){ return D.falls[b]-D.falls[a]; });
+  return arr;
+}
+function pickWeak(n){
+  var weak=weakTypes(), w={}; weak.slice(0,3).forEach(function(k,i){ w[k]=D.falls[k]; });
+  var scored=Q.map(function(q,i){
+    var s=0;
+    q.o.forEach(function(o){
+      if(q.neg){ if(o[1]===0 && w[o[2]]) s+=w[o[2]]; }
+      else if(o[1]===0 && w[o[2]]) s+=w[o[2]];
+    });
+    if(q.neg && w[0]) s+=w[0];
+    var h=D.qs[i]; if(h && h.w) s+=2;
+    return {i:i, s:s+Math.random()};
+  });
+  scored.sort(function(a,b){ return b.s-a.s; });
+  return shuffle(scored.slice(0,n).map(function(x){return x.i;}));
+}
+function startSession(mode){
+  var ids;
+  if(mode==="all") ids=shuffle(Q.map(function(_,i){return i;}));
+  else if(mode==="weak") ids=pickWeak(10);
+  else ids=shuffle(Q.map(function(_,i){return i;})).slice(0,10);
+  var perm={}; ids.forEach(function(id){ perm[id]=shuffle([0,1,2,3,4]); });
+  D.sess={mode:mode, ids:ids, i:0, ans:{}, perm:perm};
+  save(); viewQuiz();
+}
+
+/* ---------- views ---------- */
+function viewHome(){
+  var h='<p class="sub" style="margin:0"><a href="index.html" style="color:inherit">← 入口ページ</a></p><h1>覚えず受かるケアマネ試験<br>ひっかけ対策問題集</h1><p class="sub">直前期に、ひっかけのパターンを見抜く練習をします。全24問・本番と同じ5択です。</p>';
+  h+='<div class="card"><p style="margin-top:0"><b>ひっかけには、8つの型があります。</b></p>'+
+     '<p class="sub" style="margin-bottom:0">問題に答えると、5つの選択肢すべてについて「なぜ正しいか・なぜ誤りか」と、ひっかけの型が表示されます。あなたが引っかかりやすい型が分かります。</p>'+
+     '<button class="btn ghost" id="gd">8つの型を読む（3分）</button></div>';
+  h+='<h2>問題に挑戦する</h2>';
+  if(D.sess){
+    h+='<button class="btn" id="rs">続きから再開（'+(D.sess.i+1)+' / '+D.sess.ids.length+'問目）</button><button class="link" id="ab">この回を破棄する</button>';
+  }else{
+    h+='<button class="btn" id="m10" style="margin-top:0">ランダム10問（約10分）</button>'+
+       '<button class="btn ghost" id="mw"'+(weakTypes().length?'':' disabled')+'>引っかかりやすい型から10問</button>'+
+       '<button class="btn ghost" id="mall">全24問（約25分）</button>';
+    if(!weakTypes().length) h+='<p class="sub">「引っかかりやすい型から」は、一度解くと使えます。</p>';
+  }
+  if(D.n>0){
+    h+='<h2>これまでに引っかかった型</h2><div class="card" style="margin-top:0">'+
+       '<p class="sub" style="margin-top:0">累計 '+D.n+'問中 '+D.right+'問正解</p>';
+    var mx=Math.max.apply(null,D.falls.concat([1]));
+    for(var k=0;k<8;k++){
+      h+='<div class="row"><span>'+esc(TYPES[k].n)+'</span><span>'+D.falls[k]+'回</span></div>'+
+         '<div class="track"><i style="width:'+Math.round(D.falls[k]/mx*100)+'%"></i></div>';
+    }
+    h+='</div><button class="link" id="rst">記録を消す</button>';
+  }
+  app.innerHTML=h; window.scrollTo(0,0);
+  document.getElementById("gd").onclick=viewGuide;
+  var e;
+  if((e=document.getElementById("rs"))) e.onclick=viewQuiz;
+  if((e=document.getElementById("ab"))) e.onclick=function(){ if(confirm("進行中の回を破棄します。よろしいですか？")){ D.sess=null; save(); viewHome(); } };
+  if((e=document.getElementById("m10"))) e.onclick=function(){ startSession("rand"); };
+  if((e=document.getElementById("mw"))) e.onclick=function(){ if(weakTypes().length) startSession("weak"); };
+  if((e=document.getElementById("mall"))) e.onclick=function(){ startSession("all"); };
+  if((e=document.getElementById("rst"))) e.onclick=function(){ if(confirm("ひっかけ対策の記録をすべて消します。よろしいですか？")){ D=initD(); save(); viewHome(); } };
+}
+
+function viewGuide(){
+  var h='<h1>ひっかけの8つの型</h1><p class="sub">問題を解く前に、一度ざっと目を通してください。</p>';
+  TYPES.forEach(function(t,i){
+    h+='<div class="tcard"><h3>'+(i+1)+'. '+esc(t.n)+'</h3><div class="tip">'+esc(t.tip)+'</div><div class="ex">例：'+esc(t.ex)+'</div></div>';
+  });
+  h+='<button class="btn" id="bk">ホームへ</button>';
+  app.innerHTML=h; window.scrollTo(0,0);
+  document.getElementById("bk").onclick=viewHome;
+}
+
+function viewQuiz(){
+  var s=D.sess; if(!s) return viewHome();
+  if(s.i>=s.ids.length) return viewResult();
+  var id=s.ids[s.i], q=Q[id], ans=s.ans[id], answered=(ans!==undefined);
+  var h='<div class="top"><div class="topline"><span>第 '+(s.i+1)+' 問 / '+s.ids.length+'</span><button class="link" id="hm" style="margin:0;padding:0">ホームに戻る</button></div>'+
+        '<div class="bar"><i style="width:'+(s.i/s.ids.length*100)+'%"></i></div></div>';
+  h+='<div class="stem">'+stemHtml(q, answered)+'</div>';
+  if(!answered) h+='<p class="sub" style="margin-top:-6px">設問の最後の言葉を、もう一度確認してから選びましょう。</p>';
+
+  var res = answered ? evalQ(q, ans) : null;
+  if(answered){
+    h+= res.correct
+      ? '<div class="verdict ok"><strong>正解です</strong>設問を正しく読めています。選択肢ごとの解説も確認しましょう。</div>'
+      : '<div class="verdict ng"><strong>ひっかかりました</strong>引っかかった型：<span class="tagk">'+esc(TYPES[res.k].n)+'</span></div>';
+  }
+  s.perm[id].forEach(function(oi, pos){
+    var o=q.o[oi], cls="opt";
+    var isRight = q.neg ? (o[1]===0) : (o[1]===1);
+    if(answered){ if(isRight) cls+=" right"; else if(oi===ans) cls+=" wrong"; }
+    h+='<button class="'+cls+'" data-o="'+oi+'"'+(answered?' disabled':'')+'><span class="no">'+(pos+1)+'</span><span>'+esc(o[0])+'</span></button>';
+    if(answered){
+      var tr = (o[1]===1);
+      h+='<div class="note"><b class="'+(tr?'t':'f')+'">'+(tr?'○ 正しい記述':'× 誤った記述')+'</b>'+
+         (!tr && o[2]>=0 ? '<span class="tagk">'+esc(TYPES[o[2]].n)+'</span>' : '')+
+         '<br>'+esc(o[3])+'</div>';
+    }
+  });
+  if(answered){
+    h+='<button class="btn" id="nx">'+(s.i===s.ids.length-1?'結果を見る':'次の問題へ')+'</button>';
+  }
+  app.innerHTML=h;
+  document.getElementById("hm").onclick=function(){ save(); viewHome(); };
+  if(!answered){
+    var b=app.querySelectorAll(".opt");
+    for(var k=0;k<b.length;k++){
+      b[k].onclick=function(){
+        var oi=parseInt(this.getAttribute("data-o"),10);
+        s.ans[id]=oi;
+        var r=evalQ(q,oi);
+        D.n++; if(r.correct) D.right++; else D.falls[r.k]++;
+        var h0=D.qs[id]||{n:0,w:0}; h0.n++; h0.w=r.correct?0:1; D.qs[id]=h0;
+        save(); viewQuiz();
+        var v=app.querySelector(".verdict"); if(v&&v.scrollIntoView) v.scrollIntoView({block:"start",behavior:"smooth"});
+      };
+    }
+  }else{
+    document.getElementById("nx").onclick=function(){ s.i++; save(); window.scrollTo(0,0); viewQuiz(); };
+  }
+}
+
+function viewResult(){
+  var s=D.sess, right=0, falls=[0,0,0,0,0,0,0,0];
+  s.ids.forEach(function(id){
+    var r=evalQ(Q[id], s.ans[id]);
+    if(r.correct) right++; else falls[r.k]++;
+  });
+  var order=[0,1,2,3,4,5,6,7].filter(function(k){return falls[k]>0;}).sort(function(a,b){return falls[b]-falls[a];});
+  var h='<h1>結果</h1><div class="card"><div class="score"><b>'+right+'</b><span> / '+s.ids.length+'問</span></div></div>';
+  if(order.length){
+    h+='<h2>引っかかった型</h2><div class="card" style="margin-top:0">';
+    order.forEach(function(k){
+      h+='<div class="row"><span>'+esc(TYPES[k].n)+'</span><span>'+falls[k]+'回</span></div><div class="track"><i style="width:'+Math.round(falls[k]/falls[order[0]]*100)+'%"></i></div>';
+    });
+    h+='</div>';
+    var t=TYPES[order[0]];
+    h+='<div class="card" style="background:#e9f1f8; border-color:#c5d8e8"><p style="margin-top:0"><b>いちばん注意する型：'+esc(t.n)+'</b></p><p style="margin-bottom:0">'+esc(t.tip)+'</p></div>';
+  }else{
+    h+='<div class="notice good">全問正解です。ひっかけに引っかかりませんでした。</div>';
+  }
+  h+='<button class="btn" id="cp">結果をコピーして進行役に送る</button>'+
+     '<div class="notice good hidden" id="cpok">コピーしました。チャットやメールに貼り付けて送ってください。</div>'+
+     '<button class="btn ghost" id="wk"'+(weakTypes().length?'':' disabled')+'>引っかかりやすい型から10問</button>'+
+     '<button class="btn ghost" id="hm">ホームへ</button>';
+  app.innerHTML=h; window.scrollTo(0,0);
+  document.getElementById("cp").onclick=function(){
+    var L=["【覚えず受かるケアマネ試験｜ひっかけ対策】","名前："+(userName()||"（未記入）"),"結果："+right+" / "+s.ids.length+"問"];
+    L.push("引っかかった型："+(order.length?order.map(function(k){return TYPES[k].n+" "+falls[k]+"回";}).join("、"):"なし"));
+    copyText(L.join("\n"), function(){ document.getElementById("cpok").className="notice good"; });
+  };
+  document.getElementById("wk").onclick=function(){ D.sess=null; save(); startSession("weak"); };
+  document.getElementById("hm").onclick=function(){ D.sess=null; save(); viewHome(); };
+}
+
+/* ---------- 起動 ---------- */
+D = ld(KEY);
+if(!D || !D.falls || D.falls.length!==8){ D=initD(); save(); }
+viewHome();
+
+})();
+</script>
+</body>
+</html>

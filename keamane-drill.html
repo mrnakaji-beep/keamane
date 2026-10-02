@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>覚えず受かるケアマネ試験｜毎日の30分ドリル</title>
+<style>
+:root{
+  --ink:#1c2733; --sub:#5a6775; --base:#f3f6f9; --card:#ffffff; --line:#d8e0e8;
+  --main:#2b5b86; --main-d:#1f4467; --ok:#2a7a55; --ok-bg:#e6f4ec;
+  --ng:#b3462f; --ng-bg:#fbeae6; --warn:#b9780f;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--base); color:var(--ink);
+  font-family:"Yu Gothic","YuGothic","Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+  font-size:16px; line-height:1.7; -webkit-text-size-adjust:100%;
+  padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+}
+.wrap{max-width:560px; margin:0 auto; padding:16px 16px 48px}
+h1{font-size:21px; line-height:1.4; margin:8px 0 4px}
+h2{font-size:17px; margin:24px 0 8px}
+p{margin:8px 0}
+.sub{color:var(--sub); font-size:14px}
+.card{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px; margin-top:12px}
+.big{font-size:26px; font-weight:700; color:var(--main-d); line-height:1.3; margin:2px 0}
+.dots{font-size:15px; color:var(--sub)}
+.dots b{color:var(--main); letter-spacing:2px}
+label{display:block; font-size:14px; color:var(--sub); margin-bottom:4px}
+input[type=text]{width:100%; font:inherit; padding:12px; border:1px solid var(--line); border-radius:10px; background:#fff}
+button{font:inherit; cursor:pointer}
+.btn{display:block; width:100%; border:0; border-radius:12px; padding:14px; background:var(--main); color:#fff; font-weight:700; font-size:17px; margin-top:14px}
+.btn:active{background:var(--main-d)}
+.btn[disabled]{background:#b9c5d1; cursor:default}
+.btn.ghost{background:#fff; color:var(--main); border:1px solid var(--main); font-weight:600; font-size:15px; padding:11px}
+.link{background:none; border:0; color:var(--sub); text-decoration:underline; font-size:13px; padding:8px 0; margin-top:6px}
+:focus-visible{outline:3px solid #f2b84b; outline-offset:2px}
+
+.top{position:sticky; top:0; background:var(--base); padding:10px 0 8px; z-index:2}
+.topline{display:flex; justify-content:space-between; align-items:baseline; font-size:14px; color:var(--sub)}
+.timer{font-variant-numeric:tabular-nums; font-weight:700; color:var(--ink); font-size:18px}
+.timer.over{color:var(--warn)}
+.bar{height:6px; background:var(--line); border-radius:3px; overflow:hidden; margin-top:6px}
+.bar i{display:block; height:100%; background:var(--main); transition:width .25s}
+.tag{display:inline-block; font-size:12px; color:var(--main); background:#e5eef6; border-radius:6px; padding:1px 8px; margin-bottom:6px}
+.q{font-size:18px; font-weight:700; line-height:1.6; margin:4px 0 14px}
+.opt{display:block; width:100%; text-align:left; background:#fff; border:1.5px solid var(--line); border-radius:12px; padding:13px 14px; margin-bottom:10px; color:var(--ink); line-height:1.55}
+.opt:active{background:#eef3f8}
+.opt.right{border-color:var(--ok); background:var(--ok-bg)}
+.opt.wrong{border-color:var(--ng); background:var(--ng-bg)}
+.opt[disabled]{cursor:default}
+.fb{border-radius:12px; padding:12px 14px; margin-top:6px; font-size:15px}
+.fb.ok{background:var(--ok-bg); border:1px solid #b7dcc6}
+.fb.ng{background:var(--ng-bg); border:1px solid #efc4ba}
+.fb strong{display:block; margin-bottom:2px}
+.notice{background:#fff6e0; border:1px solid #f0d9a0; border-radius:10px; padding:8px 12px; font-size:14px; margin:8px 0}
+.notice.good{background:var(--ok-bg); border-color:#b7dcc6}
+.hidden{display:none}
+
+.dcard{display:flex; justify-content:space-between; align-items:center; gap:8px; width:100%; text-align:left; background:#fff; border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin-top:8px; color:var(--ink)}
+.dcard.now{border-color:var(--main); box-shadow:0 0 0 2px #cfe0ef}
+.dcard.grad{background:var(--ok-bg); border-color:#b7dcc6}
+.dcard b{display:block}
+.dcard small{color:var(--sub); font-size:12.5px}
+.st{font-size:13px; font-weight:700; white-space:nowrap}
+.st.g{color:var(--ok)}
+.st.n{color:var(--main)}
+.logrow{display:flex; justify-content:space-between; font-size:14px; padding:6px 0; border-top:1px solid var(--line)}
+.logrow:first-child{border-top:0}
+
+.score{text-align:center; padding:6px 0 2px}
+.score b{font-size:48px; color:var(--main); line-height:1.1}
+.score span{font-size:18px; color:var(--sub)}
+.dom{margin:14px 0}
+.dom .row{display:flex; justify-content:space-between; font-size:15px; font-weight:700}
+.track{position:relative; height:14px; background:#e6ecf2; border-radius:7px; margin-top:6px}
+.track i{position:absolute; left:0; top:0; bottom:0; border-radius:7px; background:var(--main)}
+.track i.low{background:var(--warn)}
+.track u{position:absolute; top:-4px; bottom:-4px; left:80%; border-left:2px dashed var(--ok)}
+.legend{font-size:12px; color:var(--sub); text-align:right; margin-top:4px}
+.chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:8px}
+.chip{background:#fff; border:1.5px solid var(--line); border-radius:20px; padding:7px 14px; font-size:14.5px; color:var(--ink)}
+.chip.on{background:#e5eef6; border-color:var(--main); color:var(--main-d); font-weight:700}
+details{background:#fff; border:1px solid var(--line); border-radius:10px; padding:10px 14px; margin-top:12px}
+summary{cursor:pointer; font-weight:700}
+.rv{border-top:1px solid var(--line); padding:10px 0; font-size:14px}
+.rv .a{color:var(--ok); font-weight:700}
+.footlinks{display:flex; justify-content:space-between; margin-top:10px}
+.grad-msg{font-size:20px; font-weight:700; color:var(--ok); text-align:center; margin:6px 0}
+textarea.copybox{position:absolute; left:-9999px}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+
+<script>
+(function(){
+"use strict";
+
+var DOM = ["介護保険・制度","保健医療","福祉・権利擁護"];
+var KEY = "keamane10_drill_v1";
+var DAY1KEY = "keamane10_day1_v1";
+var LIM = {practice:900, mini:600, final:1800};
+var PASS = 0.8;
+
+// c[0] が正解。0〜29 は1日目の診断テストと同じ並び（10問ずつ）
+var Q = [
+ {d:0,q:"介護保険の第1号被保険者の年齢要件は？",c:["65歳以上","60歳以上","40歳以上","75歳以上"],e:"第1号被保険者は65歳以上、第2号被保険者は40歳以上65歳未満の医療保険加入者です。"},
+ {d:0,q:"第2号被保険者（40〜64歳）が要介護認定を受けられるのは？",c:["加齢に伴う特定疾病が原因の場合","原因を問わず、心身の状態が悪くなった場合","身体障害者手帳を持っている場合","生活保護を受けている場合"],e:"第2号は、特定疾病（16疾病）が原因の場合に限り給付の対象になります。"},
+ {d:0,q:"要介護認定の申請に対する処理期間は、原則として申請から何日以内？",c:["30日以内","7日以内","14日以内","60日以内"],e:"申請日から30日以内に処理するのが原則です。"},
+ {d:0,q:"新規認定の有効期間は、原則として何か月？",c:["6か月","3か月","12か月","24か月"],e:"新規認定は原則6か月（市町村が必要と認める場合は3〜12か月の範囲）です。"},
+ {d:0,q:"区分支給限度基準額の対象とならないサービスは？",c:["居宅療養管理指導","訪問介護","通所介護","短期入所生活介護"],e:"居宅療養管理指導、居宅介護支援、福祉用具購入、住宅改修などは対象外です。"},
+ {d:0,q:"居宅介護支援（ケアプラン作成）の利用者負担は？",c:["なし（全額保険給付）","1割","2割","3割"],e:"居宅介護支援は利用者負担がなく、全額が保険給付です。"},
+ {d:0,q:"住宅改修の支給限度基準額は、同一住宅で原則いくら？",c:["20万円","10万円","30万円","50万円"],e:"原則20万円が限度で、その範囲の費用の7〜9割が支給されます。"},
+ {d:0,q:"居宅介護支援のモニタリングは、特段の事情がない限りどの頻度で行う？",c:["少なくとも1月に1回、利用者の居宅を訪問して面接","3か月に1回","6か月に1回","1年に1回"],e:"少なくとも1月に1回、居宅を訪問して面接し、結果を記録します（一定の要件でテレビ電話等を活用できる特例あり）。"},
+ {d:0,q:"地域包括支援センターの業務「ではない」ものは？",c:["要介護認定の審査判定","総合相談支援","権利擁護","包括的・継続的ケアマネジメント支援"],e:"審査判定は、市町村に置かれる介護認定審査会の役割です。"},
+ {d:0,q:"介護支援専門員証の有効期間は？",c:["5年","3年","7年","10年"],e:"有効期間は5年で、更新には更新研修の修了が必要です。"},
+ {d:1,q:"成人の安静時の脈拍数の目安は？",c:["1分間に60〜100回","1分間に30〜50回","1分間に110〜130回","1分間に140〜160回"],e:"成人の正常な脈拍は1分間に60〜100回程度です。"},
+ {d:1,q:"仰臥位（あおむけ）で褥瘡ができやすい部位は？",c:["仙骨部","腹部","膝蓋部（ひざのお皿）","大腿前面"],e:"あおむけでは仙骨部、後頭部、肩甲骨部、踵などの骨が出ている部位にできやすくなります。"},
+ {d:1,q:"誤嚥性肺炎の予防に有効なのは？",c:["口腔ケアの徹底","食事中は仰向けの姿勢にする","一度に多くの量を口に入れる","水分は一切とらない"],e:"口の中の細菌を減らす口腔ケアは、誤嚥性肺炎の予防に有効です。"},
+ {d:1,q:"糖尿病の三大合併症「ではない」ものは？",c:["肝硬変","網膜症","腎症","神経障害"],e:"三大合併症は、網膜症・腎症・神経障害です。"},
+ {d:1,q:"糖尿病治療中の高齢者が、冷や汗・手の震え・動悸を訴えた。まず疑うのは？",c:["低血糖","高血糖","骨折","難聴"],e:"低血糖の典型的な症状です。意識があればブドウ糖などの糖分を摂取し、意識がなければ救急要請します。"},
+ {d:1,q:"認知症の「中核症状」に当てはまるのは？",c:["記憶障害","徘徊","幻覚","抑うつ"],e:"中核症状は記憶障害・見当識障害・実行機能障害など。徘徊・幻覚・抑うつは行動・心理症状（BPSD）です。"},
+ {d:1,q:"訪問看護を利用するために必要なものは？",c:["主治医の訪問看護指示書","ケアマネジャーの依頼書のみ","市町村の許可証","薬剤師の指示書"],e:"訪問看護は、主治医が交付する訪問看護指示書に基づいて行われます。"},
+ {d:1,q:"心不全の悪化を疑うサインは？",c:["数日での急な体重増加とむくみ","体重の緩やかな減少","血圧が少し下がった","食欲の増加"],e:"体液がたまるため、急な体重増加、むくみ、息切れが悪化のサインです。"},
+ {d:1,q:"COPD（慢性閉塞性肺疾患）の最大の原因は？",c:["喫煙","飲酒","塩分の摂りすぎ","運動不足"],e:"長期間の喫煙が最大の原因です。"},
+ {d:1,q:"心房細動が原因で起こりやすい脳卒中は？",c:["心原性脳塞栓症","脳出血","ラクナ梗塞","くも膜下出血"],e:"心臓内にできた血栓が脳血管をふさぐのが心原性脳塞栓症で、重症になりやすいのが特徴です。"},
+ {d:2,q:"成年後見制度で、判断能力が最も不十分な人が対象となる類型は？",c:["後見","保佐","補助","任意後見"],e:"判断能力の不十分さが重い順に、後見・保佐・補助です。"},
+ {d:2,q:"日常生活自立支援事業の実施主体は？",c:["都道府県社会福祉協議会","市町村","民生委員","地域包括支援センター"],e:"実施主体は都道府県社会福祉協議会（指定都市を含む）で、市区町村の社協等が窓口を担います。"},
+ {d:2,q:"生活保護を受けている人の、介護保険サービスの利用者負担分は原則として何で賄う？",c:["介護扶助","医療扶助","生活扶助","住宅扶助"],e:"介護保険サービスの利用者負担分は、生活保護の介護扶助でまかなわれます。"},
+ {d:2,q:"障害福祉サービスを使っていた人が65歳になった。同種の介護保険サービスがある場合、原則は？",c:["介護保険サービスが優先","障害福祉サービスが優先","両方を全額利用できる","どちらも利用できなくなる"],e:"障害者総合支援法では介護保険優先が原則です（必要に応じて障害福祉サービスを上乗せ・併用できる場合があります）。"},
+ {d:2,q:"同じ月の利用者負担が上限額を超えたとき、超えた分が払い戻される制度は？",c:["高額介護サービス費","高額療養費","特定入所者介護サービス費","居宅介護サービス費"],e:"介護サービスの利用者負担が月の上限を超えた分は、高額介護サービス費として支給されます。"},
+ {d:2,q:"養護者による高齢者虐待で、生命・身体に重大な危険がある場合の通報先は？",c:["市町村","都道府県","社会福祉協議会","警察のみ"],e:"通報先は市町村です（地域包括支援センターなどが窓口になります）。"},
+ {d:2,q:"特定福祉用具販売（購入）の対象は？",c:["腰掛便座","車いす","特殊寝台","歩行器"],e:"腰掛便座や入浴補助用具など、肌に直接触れるものは販売の対象です。車いす・特殊寝台・歩行器は貸与です。"},
+ {d:2,q:"特別養護老人ホーム（介護老人福祉施設）に新規入所できるのは、原則どの要介護度から？",c:["要介護3以上","要介護1以上","要介護2以上","要介護5のみ"],e:"原則は要介護3以上です（やむを得ない事情がある場合は要介護1・2でも特例入所あり）。"},
+ {d:2,q:"民生委員を委嘱するのは？",c:["厚生労働大臣","都道府県知事","市町村長","社会福祉協議会長"],e:"民生委員は厚生労働大臣が委嘱し、児童委員を兼ねます。"},
+ {d:2,q:"地域密着型サービス事業者を指定するのは？",c:["市町村長","都道府県知事","厚生労働大臣","国民健康保険団体連合会"],e:"地域密着型サービスは、市町村長が事業者を指定します。"},
+
+ // ---- 介護保険・制度（追加20）----
+ {d:0,q:"要介護認定の一次判定は、何にもとづいて行われる？",c:["認定調査の結果等によるコンピュータ判定","介護認定審査会の合議","主治医の判断のみ","ケアマネジャーの判断"],e:"一次判定は認定調査の結果等をコンピュータで判定し、二次判定で介護認定審査会が審査します。"},
+ {d:0,q:"介護認定審査会の委員を任命するのは？",c:["市町村長","都道府県知事","厚生労働大臣","地域包括支援センター長"],e:"委員は保健・医療・福祉の学識経験者から、市町村長が任命します。"},
+ {d:0,q:"要支援1・2の人が受けるのは、どちらの給付？",c:["予防給付","介護給付","地域支援事業のみ","医療保険の給付"],e:"要支援は予防給付（介護予防サービス）、要介護は介護給付です。"},
+ {d:0,q:"更新認定の有効期間は、原則として何か月？",c:["12か月","6か月","24か月","36か月"],e:"更新認定は原則12か月（市町村が必要と認める場合は3〜48か月の範囲）です。"},
+ {d:0,q:"介護保険の保険者は？",c:["市町村（特別区を含む）","都道府県","国","医療保険者"],e:"保険者は市町村と特別区で、保険料の徴収や認定、給付を担います。"},
+ {d:0,q:"介護保険の給付費の財源は、公費と保険料の割合がどうなっている？",c:["公費50%、保険料50%","公費30%、保険料70%","公費70%、保険料30%","全額公費"],e:"給付費の半分が公費（国・都道府県・市町村）、半分が保険料です。"},
+ {d:0,q:"第1号被保険者の保険料は、年金が年額18万円以上の場合どう徴収される？",c:["年金から天引き（特別徴収）","納付書で納める（普通徴収）","医療保険者がまとめて徴収","徴収されない"],e:"年金年額18万円以上は特別徴収、それ未満は普通徴収が原則です。"},
+ {d:0,q:"償還払いが原則となる給付は？",c:["特定福祉用具購入費","訪問介護","通所介護","短期入所生活介護"],e:"福祉用具購入と住宅改修は、いったん全額を支払い後で払い戻しを受ける償還払いが原則です（受領委任払いを行う市町村もあります）。"},
+ {d:0,q:"居宅サービス計画の原案について、利用者に交付する前に必要な手続きは？",c:["利用者または家族への説明と、文書による同意","市町村長の承認","主治医の署名","介護認定審査会の審査"],e:"原案を説明して文書で同意を得たうえで、計画を利用者と担当者に交付します。"},
+ {d:0,q:"要介護認定の有効期間の途中で、心身の状態が大きく変わった。できることは？",c:["有効期間中でも区分変更の申請ができる","更新時まで申請できない","半年経たないと申請できない","申請はできず、サービスを自費で利用する"],e:"状態が変化したときは、有効期間中でも区分変更申請ができます。"},
+ {d:0,q:"特定疾病に「含まれない」ものは？",c:["心筋梗塞","脳血管疾患","関節リウマチ","パーキンソン病関連疾患"],e:"特定疾病は16疾病で、脳血管疾患・関節リウマチ・パーキンソン病関連疾患などが含まれます。心筋梗塞は含まれません。"},
+ {d:0,q:"要介護1の人への貸与が、原則として対象外となる福祉用具は？",c:["特殊寝台","手すり","スロープ","歩行補助つえ"],e:"軽度者（要支援1・2、要介護1）は、車いす・特殊寝台・床ずれ防止用具などの貸与が原則対象外です（例外給付あり）。"},
+ {d:0,q:"介護給付費の審査・支払を行う機関は？",c:["国民健康保険団体連合会","社会保険診療報酬支払基金","都道府県庁","地域包括支援センター"],e:"事業者からの介護給付費請求は、国保連が審査・支払を行います。"},
+ {d:0,q:"在宅復帰・在宅療養支援を目的に、リハビリや医学的管理を行う介護保険施設は？",c:["介護老人保健施設","介護老人福祉施設","介護医療院","特定施設"],e:"介護老人保健施設は、在宅復帰を目指し、リハビリと医学的管理のもとでの介護を提供する施設です。"},
+ {d:0,q:"介護保険法が目指す考え方として、正しいのは？",c:["尊厳を保持し、有する能力に応じた自立した日常生活を支える","施設入所を優先して促進する","家族による介護を義務づける","介護費用を全額公費でまかなう"],e:"介護保険法は、尊厳の保持と有する能力に応じた自立支援を理念にしています。"},
+ {d:0,q:"第2号被保険者の資格を取得するのはいつ？",c:["40歳の誕生日の前日","40歳の誕生日当日","40歳の誕生日の翌日","40歳になった翌月1日"],e:"年齢計算の法律により、40歳に達する日は誕生日の前日です。"},
+ {d:0,q:"特定事業所集中減算が適用されるのは、同一事業者のサービスの紹介割合がどうなったとき？",c:["正当な理由なく80%を超えた","50%を超えた","60%を超えた","100%になった"],e:"正当な理由なく、特定の事業者への集中割合が80%を超えると減算になります。"},
+ {d:0,q:"生活援助中心型の訪問介護が、通常のケアプランから著しく多い場合に、ケアマネジャーが行うことは？",c:["ケアプランを市町村に届け出る","サービスを自動的に減らす","事業所を変更する","利用者に追加の自己負担を求める"],e:"基準回数以上の生活援助中心型を位置づける場合は、ケアプランを市町村に届け出ます。"},
+ {d:0,q:"居宅介護支援事業所の管理者は、原則としてどの資格が必要？",c:["主任介護支援専門員","介護支援専門員（主任でなくてよい）","社会福祉士","看護師"],e:"令和3年度から管理者は主任介護支援専門員が要件です（経過措置期間がある事業所もあります）。"},
+ {d:0,q:"居宅サービス計画の作成を依頼する際、市町村に提出するものは？",c:["居宅サービス計画作成依頼届出書","要介護認定申請書","利用契約書","訪問看護指示書"],e:"届出書を提出しておくことで、居宅介護サービス費が現物給付（代理受領）になります。"},
+
+ // ---- 保健医療（追加20）----
+ {d:1,q:"診察室血圧で、高血圧と判定される基準は？",c:["140/90mmHg以上","120/80mmHg以上","160/100mmHg以上","130/70mmHg以上"],e:"診察室血圧で140/90mmHg以上が高血圧です（家庭血圧は135/85mmHg以上）。"},
+ {d:1,q:"高齢者の脱水でみられるサインは？",c:["口や皮膚の乾燥、尿量の減少","体重の急な増加","尿量の増加","血圧の上昇"],e:"高齢者は喉の渇きを感じにくく、口や皮膚の乾燥、尿量の減少、ぼんやりするなどが手がかりです。"},
+ {d:1,q:"嚥下障害のある人の食事の姿勢として、適切なのは？",c:["座位で軽くあごを引く","あおむけで寝たまま","あごを大きく上げる","立ったまま"],e:"座位で軽くあごを引くと、食べ物が気管に入りにくくなります。"},
+ {d:1,q:"パーキンソン病の主な症状「ではない」ものは？",c:["片麻痺","安静時振戦","筋強剛（筋固縮）","無動・寡動"],e:"主症状は振戦・筋強剛・無動（寡動）・姿勢反射障害です。片麻痺は脳卒中で多くみられます。"},
+ {d:1,q:"褥瘡の予防として、適切なのは？",c:["体位変換と除圧を行う","赤くなった部位を強くマッサージする","皮膚を常に湿らせておく","同じ姿勢を保つ"],e:"発赤部のマッサージは皮膚を傷めるため避け、体位変換・除圧・皮膚の清潔と栄養管理を行います。"},
+ {d:1,q:"高齢者で寝たきりの原因になりやすい骨折は？",c:["大腿骨頸部骨折","橈骨遠位端骨折","肋骨骨折","鎖骨骨折"],e:"大腿骨頸部骨折は歩行が困難になりやすく、寝たきりの原因になりやすい骨折です。"},
+ {d:1,q:"安静臥床が長く続いたときに起こりやすいのは？",c:["筋萎縮や関節拘縮","筋力の増強","骨密度の増加","血圧の上昇"],e:"活動が減ることで起こる心身の機能低下を、廃用症候群といいます。"},
+ {d:1,q:"鮮明な幻視やパーキンソン症状、症状の日内変動が特徴的な認知症は？",c:["レビー小体型認知症","アルツハイマー型認知症","血管性認知症","前頭側頭型認知症"],e:"レビー小体型認知症の特徴です。前頭側頭型は人格変化、血管性は段階的な悪化が特徴です。"},
+ {d:1,q:"改訂長谷川式簡易知能評価スケール（HDS-R）の満点は？",c:["30点","20点","50点","100点"],e:"HDS-Rは30点満点で、20点以下で認知症が疑われます。"},
+ {d:1,q:"高齢者が多くの薬を服用し、副作用などが問題になる状態を何という？",c:["ポリファーマシー","プレフレイル","サルコペニア","ロコモティブシンドローム"],e:"ポリファーマシーは、多剤服用により有害事象や服薬の負担が増える状態です。"},
+ {d:1,q:"高齢者の低栄養のリスクの目安となるBMIは？",c:["18.5未満","25以上","30以上","22"],e:"BMI18.5未満は低体重で、低栄養のリスクの目安になります。"},
+ {d:1,q:"在宅酸素療法を行っている人への注意として、正しいのは？",c:["火気（たばこ・ガスコンロなど）から2m以上離す","息苦しいときは自己判断で流量を増やす","たばこを吸ってもよい","酸素濃縮器を密閉した空間に置く"],e:"酸素は火を強く燃え上がらせるため、火気から離します。流量は医師の指示どおりにします。"},
+ {d:1,q:"ノロウイルスの感染対策として有効なのは？",c:["次亜塩素酸ナトリウムによる消毒","アルコール消毒のみ","紫外線のみ","加湿するだけ"],e:"ノロウイルスにはアルコールが効きにくく、嘔吐物や便の処理には次亜塩素酸ナトリウムを使います。"},
+ {d:1,q:"顔のゆがみ、腕の麻痺、ろれつが回らない症状が急に出た。まず行うのは？",c:["すぐに救急要請する","様子をみて翌日受診する","水分をとって休ませる","市販薬を飲ませる"],e:"脳卒中は時間との勝負です。発症時刻を確認して、すぐに救急要請します。"},
+ {d:1,q:"朝のこわばりや、手指などの左右対称の関節の腫れ・痛みが特徴的な疾患は？",c:["関節リウマチ","変形性膝関節症","痛風","骨粗鬆症"],e:"関節リウマチは自己免疫疾患で、朝のこわばりと左右対称の関節症状が特徴です。"},
+ {d:1,q:"水晶体が濁って視力が低下する疾患は？",c:["白内障","緑内障","加齢黄斑変性","網膜剥離"],e:"水晶体が濁るのが白内障、視神経が障害されて視野が欠けるのが緑内障です。"},
+ {d:1,q:"咳やくしゃみ、重い物を持つときに尿がもれる失禁は？",c:["腹圧性尿失禁","切迫性尿失禁","溢流性尿失禁","機能性尿失禁"],e:"腹圧がかかったときに尿がもれるのが腹圧性尿失禁で、骨盤底筋の衰えが関係します。"},
+ {d:1,q:"糖尿病型と判定されるHbA1cの基準は？",c:["6.5%以上","5.0%以上","7.5%以上","8.0%以上"],e:"HbA1c 6.5%以上は糖尿病型と判定されます（ほかの検査とあわせて診断）。"},
+ {d:1,q:"狭心症の発作時に使われる薬は？",c:["ニトログリセリン（舌下錠）","抗生物質","下剤","睡眠薬"],e:"ニトログリセリンの舌下錠は冠動脈を広げ、発作を和らげます。"},
+ {d:1,q:"末期の悪性腫瘍など、厚生労働大臣が定める疾病等の人の訪問看護は、どちらの保険が適用される？",c:["医療保険","介護保険","自費","どの保険も使えない"],e:"末期の悪性腫瘍や難病などは、介護保険ではなく医療保険の訪問看護になります。"},
+
+ // ---- 福祉・権利擁護（追加20）----
+ {d:2,q:"法定後見の開始の審判を行うのは？",c:["家庭裁判所","市町村長","社会福祉協議会","法務局"],e:"法定後見（後見・保佐・補助）は、家庭裁判所が審判で開始します。"},
+ {d:2,q:"成年後見人が、本人の居住用不動産を売却するときに必要なのは？",c:["家庭裁判所の許可","市町村長の許可","ケアマネジャーの同意","不要（自由に売却できる）"],e:"居住用不動産の処分は本人の生活に大きく影響するため、家庭裁判所の許可が必要です。"},
+ {d:2,q:"任意後見契約は、どのような形式で結ぶ？",c:["公正証書","口頭","私文書（自筆の書面）","家庭裁判所の書面"],e:"任意後見契約は、公証人が作成する公正証書で結びます。"},
+ {d:2,q:"高齢者の財産を不当に処分したり、本人の金銭を使わせなかったりする行為は、虐待のどの類型？",c:["経済的虐待","身体的虐待","心理的虐待","介護・世話の放棄・放任"],e:"高齢者虐待防止法の類型は、身体的・心理的・性的・経済的虐待と、介護・世話の放棄・放任です。"},
+ {d:2,q:"養護者による虐待で高齢者の生命・身体に重大な危険があるおそれがあるとき、立入調査を行うのは？",c:["市町村長","警察署長","都道府県知事","社会福祉協議会"],e:"市町村長が、担当職員に立入調査をさせることができます。"},
+ {d:2,q:"障害福祉サービスの支給決定を行うのは？",c:["市町村","都道府県","国","相談支援専門員"],e:"障害者総合支援法の支給決定は、市町村が行います。"},
+ {d:2,q:"障害福祉サービスの利用にあたり、相談支援専門員が作成する計画は？",c:["サービス等利用計画","居宅サービス計画","個別支援計画","介護予防サービス計画"],e:"相談支援専門員がサービス等利用計画を作成します。"},
+ {d:2,q:"生活困窮者自立支援制度の必須事業は？",c:["自立相談支援事業","成年後見制度利用支援事業","要介護認定","高額療養費の支給"],e:"自立相談支援事業と住居確保給付金の支給が必須事業です。"},
+ {d:2,q:"「資産・能力その他あらゆるものを活用してもなお不足する部分を補う」という生活保護の原理は？",c:["補足性の原理","無差別平等の原理","最低生活の原理","国家責任の原理"],e:"保護は、利用できる資産や能力などを活用してもなお生活できない場合に行われます。"},
+ {d:2,q:"生活保護の実施機関は？",c:["福祉事務所","社会福祉協議会","地域包括支援センター","保健所"],e:"都道府県・市・福祉事務所を設置する町村の福祉事務所が、保護の実施を担います。"},
+ {d:2,q:"後期高齢者医療制度の対象は？",c:["75歳以上（および一定の障害がある65〜74歳）","65歳以上の全員","70歳以上の全員","80歳以上"],e:"75歳以上と、65〜74歳で一定の障害がある人が対象です。"},
+ {d:2,q:"医療と介護の自己負担の合計が年間の上限を超えたとき、払い戻される制度は？",c:["高額医療合算介護サービス費","高額介護サービス費","高額療養費","特定入所者介護サービス費"],e:"医療保険と介護保険の両方の自己負担が高額になった世帯に、合算して払い戻されます。"},
+ {d:2,q:"低所得の施設入所者の食費・居住費の負担を軽くする制度は？",c:["特定入所者介護サービス費（補足給付）","高額介護サービス費","居宅介護サービス費","介護予防サービス費"],e:"所得などに応じた負担限度額を超える分が、補足給付として支給されます。"},
+ {d:2,q:"介護保険サービスを契約で利用することが著しく困難な場合に、市町村が職権で行う仕組みは？",c:["やむを得ない事由による措置","償還払い","受領委任払い","任意後見"],e:"虐待や認知症などで契約が困難な場合は、老人福祉法に基づく措置が行われます。"},
+ {d:2,q:"サービス付き高齢者向け住宅の必須サービスは？",c:["安否確認と生活相談","食事の提供","入浴介助","医療の提供"],e:"サ高住は、安否確認と生活相談のサービスの提供が必須です。"},
+ {d:2,q:"有料老人ホームを設置するときの手続きは？",c:["都道府県知事等への届出","厚生労働大臣の許可","市町村長の認可","届出は不要"],e:"有料老人ホームは老人福祉法に基づき、都道府県知事等への届出が必要です。"},
+ {d:2,q:"育児・介護休業法の介護休業は、対象家族1人につき通算で最大何日？",c:["93日","30日","60日","180日"],e:"対象家族1人につき通算93日まで、3回を上限に分割して取得できます。"},
+ {d:2,q:"日常生活自立支援事業を利用するために、本人に求められるのは？",c:["契約の内容を判断できる能力","成年後見の審判","要介護認定","身体障害者手帳"],e:"判断能力が不十分でも、契約内容を理解できる人が対象で、それが難しい場合は成年後見制度を検討します。"},
+ {d:2,q:"介護支援専門員の秘密保持義務は、職を退いた後はどうなる？",c:["退いた後も守る義務がある","退いた時点で終わる","1年間だけ続く","本人が亡くなるまで続く"],e:"正当な理由なく業務上知った秘密を漏らしてはならず、この義務は介護支援専門員でなくなった後も続きます。"},
+ {d:2,q:"地域ケア会議の主な目的として、正しいのは？",c:["個別事例の検討を通じて、地域課題の把握や政策形成につなげる","要介護認定の審査判定を行う","保険料を決める","事業者を指定する"],e:"個別ケースの支援内容を検討しつつ、地域の課題を見つけて、資源開発や政策に結びつけます。"}
+];
+
+var app = document.getElementById("app");
+var D = null, timerId = null;
+
+/* ---------- util ---------- */
+function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+function mmss(sec){ var m=Math.floor(sec/60), s=sec%60; return (m<10?"0":"")+m+":"+(s<10?"0":"")+s; }
+function shuffle(a){ a=a.slice(); for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+function ld(k){ try{ var s=localStorage.getItem(k); return s?JSON.parse(s):null; }catch(e){ return null; } }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(D)); }catch(e){} }
+function md(t){ var d=new Date(t); return (d.getMonth()+1)+"/"+d.getDate(); }
+function sameDay(a,b){ var x=new Date(a), y=new Date(b); return x.getFullYear()===y.getFullYear() && x.getMonth()===y.getMonth() && x.getDate()===y.getDate(); }
+function mkp(id){ return shuffle(Q[id].c.map(function(_,k){return k;})); }
+function copyText(txt, cb){
+  var done=function(){ if(cb) cb(); };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(done, function(){ fb(txt); done(); });
+  }else{ fb(txt); done(); }
+  function fb(t){
+    var ta=document.createElement("textarea"); ta.className="copybox"; ta.value=t;
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand("copy"); }catch(e){}
+    document.body.removeChild(ta);
+  }
+}
+
+/* ---------- state ---------- */
+function day1(){
+  var d=ld(DAY1KEY);
+  if(!d || !d.ans) return null;
+  var n=0; for(var k in d.ans){ if(d.ans.hasOwnProperty(k)) n++; }
+  if(n<30) return null;
+  return d;
+}
+function initD(){
+  var d1 = day1();
+  var X = {v:1, name:(d1&&d1.name)||"", order:null, focus:null,
+           dom:[{s:0,g:false,b:0,t:0},{s:0,g:false,b:0,t:0},{s:0,g:false,b:0,t:0}],
+           seen:{}, log:[], sess:null, day1:null, final:null, last:null};
+  if(d1){
+    var per=[0,0,0];
+    for(var i=0;i<30;i++){
+      var a=d1.ans[i];
+      if(a!==undefined){ X.seen[i]={n:1,w:(a===0?0:1)}; if(a===0) per[Math.floor(i/10)]++; }
+    }
+    X.day1={per:per, total:per[0]+per[1]+per[2]};
+    X.order=[0,1,2].sort(function(a,b){ return (per[a]-per[b]) || (a-b); });
+  }
+  return X;
+}
+function focusDom(){
+  if(!D.order) return -1;
+  if(D.focus!==null && D.focus!==undefined && !D.dom[D.focus].g) return D.focus;
+  for(var i=0;i<D.order.length;i++){ if(!D.dom[D.order[i]].g) return D.order[i]; }
+  return -1;
+}
+function gradCount(){ return D.dom.filter(function(x){return x.g;}).length; }
+function pick(dom,n,exclude,mode){
+  var pool=[];
+  Q.forEach(function(q,i){
+    if(q.d!==dom || exclude.indexOf(i)>=0) return;
+    var s=D.seen[i]||{n:0,w:0}, key;
+    if(mode==="practice"){ key = s.w ? 0 : (s.n===0 ? 1 : 2+s.n); }
+    else{ key = s.n; }
+    pool.push({i:i, k:key+Math.random()*0.6});
+  });
+  pool.sort(function(a,b){ return a.k-b.k; });
+  return shuffle(pool.slice(0,n).map(function(x){return x.i;}));
+}
+function markSeen(id,orig){
+  var e=D.seen[id]||{n:0,w:0};
+  e.n++; e.w=(orig===0?0:1);
+  D.seen[id]=e;
+}
+function countRight(ids, ans){
+  var c=0; ids.forEach(function(id){ if(ans[id]===0) c++; });
+  return c;
+}
+
+/* ---------- timer ---------- */
+function secKey(s){
+  return s.phase==="practice"?"ps": s.phase==="mini"&&s.mstart?"ms": s.phase==="final"?"fs": null;
+}
+function startTimer(){
+  if(timerId) return;
+  timerId=setInterval(function(){
+    var s=D&&D.sess; if(!s||document.hidden) return;
+    var k=secKey(s); if(!k) return;
+    s[k]=(s[k]||0)+1;
+    var lim=LIM[s.phase]; var rem=Math.max(0,lim-s[k]);
+    var el=document.getElementById("tm");
+    if(el){
+      el.textContent=mmss(rem);
+      if(rem===0){
+        el.className="timer over";
+        if(!app.querySelector(".notice")){
+          var n=document.createElement("div"); n.className="notice";
+          n.textContent="予定の時間になりました。区切りのよいところまで続けても、ここで進めても大丈夫です。";
+          var top=app.querySelector(".top");
+          if(top&&top.parentNode) top.parentNode.insertBefore(n, top.nextSibling);
+        }
+      }
+    }
+    if(s[k]%5===0) save();
+  },1000);
+}
+function stopTimer(){ if(timerId){ clearInterval(timerId); timerId=null; } }
+
+/* ---------- shared pieces ---------- */
+function qHtml(o){
+  var id=o.ids[o.i], q=Q[id], ans=o.ans[id], answered=(ans!==undefined);
+  var rem=Math.max(0,o.limit-o.sec);
+  var h='<div class="top"><div class="topline"><span>'+o.label+'　'+(o.i+1)+' / '+o.ids.length+'</span>'+
+        '<span>残り <span class="timer'+(rem===0?' over':'')+'" id="tm">'+mmss(rem)+'</span></span></div>'+
+        '<div class="bar"><i style="width:'+(o.i/o.ids.length*100)+'%"></i></div></div>';
+  if(rem===0) h+='<div class="notice">予定の時間になりました。区切りのよいところまで続けても、ここで進めても大丈夫です。</div>';
+  h+='<span class="tag">'+esc(DOM[q.d])+'</span><div class="q">'+esc(q.q)+'</div>';
+  o.perm[id].forEach(function(orig){
+    var cls="opt";
+    if(o.fb && answered){ if(orig===0) cls+=" right"; else if(ans===orig) cls+=" wrong"; }
+    h+='<button class="'+cls+'" data-o="'+orig+'"'+(answered?' disabled':'')+'>'+esc(q.c[orig])+'</button>';
+  });
+  if(o.fb && answered){
+    var ok=(ans===0);
+    h+='<div class="fb '+(ok?'ok':'ng')+'"><strong>'+(ok?'正解':'不正解')+'</strong>'+esc(q.e)+'</div>';
+    h+='<button class="btn" id="nx">'+(o.i===o.ids.length-1?o.lastLabel:'次の問題へ')+'</button>';
+  }
+  return h;
+}
+function bindOpts(fn){
+  var b=app.querySelectorAll(".opt");
+  for(var k=0;k<b.length;k++){
+    b[k].onclick=function(){ fn(parseInt(this.getAttribute("data-o"),10)); };
+  }
+}
+function dots(d){
+  if(d.g) return '<span class="dots"><b>🎓 卒業</b></span>';
+  return '<span class="dots">連続達成 <b>'+(d.s>=1?'●':'○')+(d.s>=2?'●':'○')+'</b>（'+Math.min(d.s,2)+'/2）</span>';
+}
+function bar(label, n, tot, before){
+  var p=Math.round(n/tot*100);
+  var h='<div class="dom"><div class="row"><span>'+esc(label)+'</span><span>'+n+' / '+tot+'（'+p+'%）</span></div>'+
+        '<div class="track"><i class="'+(p<80?'low':'')+'" style="width:'+p+'%"></i><u></u></div>';
+  if(before!==null && before!==undefined){
+    var diff=n-before;
+    h+='<div class="legend">1日目 '+before+'問 → '+n+'問（'+(diff>=0?'+':'')+diff+'）</div>';
+  }
+  return h+'</div>';
+}
+function nextStepText(){
+  var f=focusDom();
+  if(f===-1) return "3分野すべて卒業です。総仕上げテストで、1日目からの伸びを確かめましょう。";
+  return "次にやる分野：「"+DOM[f]+"」（連続達成 "+Math.min(D.dom[f].s,2)+"/2）";
+}
+function progressText(){
+  var L=["【覚えず受かるケアマネ試験｜進み具合】","名前："+(D.name||"（未記入）")];
+  DOM.forEach(function(n,i){
+    var d=D.dom[i];
+    L.push(n+"："+(d.g?"卒業":"挑戦中（連続 "+Math.min(d.s,2)+"/2・ミニテスト"+d.t+"回・最高"+d.b+"/10）"));
+  });
+  L.push("卒業：" + gradCount() + " / 3分野");
+  if(D.final) L.push("総仕上げ："+D.final.total+" / 30問");
+  return L.join("\n");
+}
+
+/* ---------- views ---------- */
+function viewSetup(){
+  stopTimer();
+  var picked=[];
+  function draw(){
+    var h='<h1>覚えず受かるケアマネ試験</h1><p class="sub">毎日の30分ドリルです。まず、取り組む順番を決めます。</p>'+
+      '<div class="card"><label for="nm">お名前（進み具合を送るときに使います）</label>'+
+      '<input type="text" id="nm" autocomplete="name" placeholder="例：山田 花子" value="'+esc(D.name)+'">'+
+      '<p style="margin-top:16px"><b>苦手だと思う分野から順に、タップしてください</b></p>'+
+      '<p class="sub">1日目の診断テストの結果が見つからなかったため、自分で決めます。</p><div>';
+    DOM.forEach(function(n,i){
+      var pos=picked.indexOf(i);
+      h+='<button class="dcard'+(pos>=0?' now':'')+'" data-i="'+i+'"><span><b>'+esc(n)+'</b></span><span class="st n">'+(pos>=0?(pos+1)+'番目':'')+'</span></button>';
+    });
+    h+='</div><button class="btn" id="st"'+(picked.length<3?' disabled':'')+'>この順で始める</button>'+
+       '<button class="link" id="rp">選び直す</button></div>';
+    app.innerHTML=h;
+    var nm=document.getElementById("nm");
+    nm.oninput=function(){ D.name=nm.value.trim(); };
+    var cs=app.querySelectorAll(".dcard");
+    for(var k=0;k<cs.length;k++){
+      cs[k].onclick=function(){
+        var i=parseInt(this.getAttribute("data-i"),10);
+        if(picked.indexOf(i)<0) picked.push(i);
+        var keep=D.name; draw(); D.name=keep; document.getElementById("nm").value=keep;
+      };
+    }
+    document.getElementById("rp").onclick=function(){ picked=[]; var keep=D.name; draw(); D.name=keep; document.getElementById("nm").value=keep; };
+    document.getElementById("st").onclick=function(){
+      if(picked.length<3) return;
+      D.name=document.getElementById("nm").value.trim();
+      D.order=picked.slice(); save(); viewHome();
+    };
+  }
+  draw();
+}
+
+function phaseLabel(s){
+  return s.phase==="practice"?"演習":s.phase==="mini"?"ミニテスト":s.phase==="final"?"総仕上げテスト":"結果";
+}
+
+function viewHome(){
+  stopTimer();
+  if(!D.order) return viewSetup();
+  var f=focusDom(), s=D.sess;
+  var h='<p class="sub" style="margin:0"><a href="index.html" style="color:inherit">← 入口ページ</a></p><h1>覚えず受かるケアマネ試験</h1><p class="sub">集中10日間｜毎日30分：演習15分 → ミニテスト10分 → ふりかえり5分</p>';
+  h+='<div class="card">';
+  if(f===-1){
+    h+='<div class="grad-msg">3分野すべて卒業です</div><p class="sub" style="text-align:center">総仕上げテストで、1日目からの伸びを確かめましょう。</p>';
+  }else{
+    h+='<span class="tag">今日の分野</span><div class="big">'+esc(DOM[f])+'</div>'+dots(D.dom[f])+
+       '<p class="sub">ミニテストで10問中8問以上を、2回連続で出すと卒業です。</p>';
+  }
+  if(s){
+    h+='<button class="btn" id="rs">続きから再開（'+phaseLabel(s)+'）</button><button class="link" id="ab">この回を破棄する</button>';
+  }else if(f!==-1){
+    var today=D.log.some(function(l){return sameDay(l.t,Date.now());});
+    h+='<button class="btn" id="go">'+(today?'もう1セット始める':'今日の30分を始める')+'</button>';
+    if(today) h+='<div class="notice good">今日の30分は完了しています。おつかれさまでした。</div>';
+  }
+  h+='</div>';
+
+  h+='<h2>分野ごとの進み具合</h2>';
+  DOM.forEach(function(n,i){
+    var d=D.dom[i], cls="dcard"+(d.g?" grad":(i===f?" now":""));
+    var sub = D.day1 ? '1日目 '+D.day1.per[i]+'/10' : '';
+    if(d.t) sub += (sub?'　':'')+'ミニテスト最高 '+d.b+'/10（'+d.t+'回）';
+    h+='<button class="'+cls+'" data-i="'+i+'"><span><b>'+esc(n)+'</b><small>'+sub+'</small></span>'+
+       '<span class="st '+(d.g?'g':'n')+'">'+(d.g?'🎓 卒業':(i===f?'取り組み中':'連続 '+Math.min(d.s,2)+'/2'))+'</span></button>';
+  });
+  if(f!==-1) h+='<p class="sub">別の分野をやりたいときは、その分野をタップしてください。</p>';
+
+  if(D.log.length){
+    h+='<h2>最近のミニテスト</h2><div class="card" style="margin-top:0">';
+    D.log.slice(-5).reverse().forEach(function(l){
+      h+='<div class="logrow"><span>'+md(l.t)+'　'+esc(DOM[l.dom])+'</span><span><b>'+l.score+'/'+l.total+'</b>　'+(l.score/l.total>=PASS?'✓':'')+'</span></div>';
+    });
+    h+='</div>';
+  }
+
+  h+='<h2>10日目</h2><button class="btn ghost" id="fin" style="margin-top:0">総仕上げテスト（30問・30分）</button>'+
+     '<p class="sub">1日目と同じ形式です。全分野を卒業してからでも、途中で試してもかまいません。</p>';
+  if(D.final) h+='<p class="sub">前回の総仕上げ：'+D.final.total+' / 30問'+(D.day1?'（1日目は '+D.day1.total+' 問）':'')+'</p>';
+
+  h+='<button class="btn ghost" id="cpp">進み具合をコピーして進行役に送る</button>'+
+     '<div class="notice good hidden" id="cpok">コピーしました。チャットやメールに貼り付けて送ってください。</div>'+
+     '<button class="link" id="rst">記録をすべて消す</button>';
+  app.innerHTML=h;
+
+  var go=document.getElementById("go"); if(go) go.onclick=startDaily;
+  var rs=document.getElementById("rs"); if(rs) rs.onclick=resume;
+  var ab=document.getElementById("ab"); if(ab) ab.onclick=function(){ if(confirm("進行中の回を破棄します。よろしいですか？")){ D.sess=null; save(); viewHome(); } };
+  var cs=app.querySelectorAll(".dcard");
+  for(var k=0;k<cs.length;k++){
+    cs[k].onclick=function(){
+      var i=parseInt(this.getAttribute("data-i"),10);
+      if(D.sess){ alert("進行中の回があります。先に再開するか、破棄してください。"); return; }
+      if(!D.dom[i].g){ D.focus=i; save(); viewHome(); }
+    };
+  }
+  document.getElementById("fin").onclick=function(){
+    if(D.sess){ alert("進行中の回があります。先に再開するか、破棄してください。"); return; }
+    startFinal();
+  };
+  document.getElementById("cpp").onclick=function(){
+    copyText(progressText(), function(){ document.getElementById("cpok").className="notice good"; });
+  };
+  document.getElementById("rst").onclick=function(){
+    if(confirm("ドリルの記録をすべて消します（1日目の診断テストの記録は消えません）。よろしいですか？")){
+      try{ localStorage.removeItem(KEY); }catch(e){}
+      D=initD(); save(); viewHome();
+    }
+  };
+}
+
+function resume(){
+  var s=D.sess; if(!s) return viewHome();
+  if(s.phase==="practice") return viewPractice();
+  if(s.phase==="mini") return viewMini();
+  if(s.phase==="final") return viewFinal();
+  if(s.phase==="result") return viewResult();
+  if(s.phase==="finalresult") return viewFinalResult();
+  viewHome();
+}
+
+function startDaily(){
+  var dom=focusDom(); if(dom===-1) return;
+  var ids=pick(dom,15,[],"practice");
+  var perm={}; ids.forEach(function(id){ perm[id]=mkp(id); });
+  D.sess={kind:"daily", dom:dom, phase:"practice", pids:ids, pans:{}, pi:0,
+          mids:null, mans:{}, mi:0, mstart:false, perm:perm, ps:0, ms:0,
+          score:null, total:10, newGrad:false, logIdx:-1, reasons:[]};
+  save(); viewPractice();
+}
+
+function viewPractice(){
+  var s=D.sess;
+  if(s.pi>=s.pids.length) return viewMini();
+  var h=qHtml({label:"演習", ids:s.pids, ans:s.pans, i:s.pi, sec:s.ps, limit:LIM.practice, fb:true, perm:s.perm, lastLabel:"ミニテストへ進む"});
+  h+='<div class="footlinks"><button class="link" id="sk">ここで切り上げてミニテストへ</button><button class="link" id="hm">ホームに戻る</button></div>';
+  app.innerHTML=h;
+  var id=s.pids[s.pi];
+  if(s.pans[id]===undefined){
+    bindOpts(function(orig){
+      s.pans[id]=orig; markSeen(id,orig); save(); viewPractice();
+      var f=app.querySelector(".fb"); if(f&&f.scrollIntoView) f.scrollIntoView({block:"nearest",behavior:"smooth"});
+    });
+  }else{
+    document.getElementById("nx").onclick=function(){ s.pi++; save(); window.scrollTo(0,0); viewPractice(); };
+  }
+  document.getElementById("sk").onclick=function(){ s.pi=s.pids.length; save(); viewMini(); };
+  document.getElementById("hm").onclick=function(){ save(); viewHome(); };
+  startTimer();
+}
+
+function viewMini(){
+  var s=D.sess;
+  if(s.phase==="practice"){
+    s.mids=pick(s.dom,10,s.pids,"mini");
+    s.mids.forEach(function(id){ if(!s.perm[id]) s.perm[id]=mkp(id); });
+    s.mi=0; s.mans={}; s.mstart=false; s.phase="mini"; save();
+  }
+  if(!s.mstart){
+    stopTimer();
+    var right=countRight(s.pids, s.pans), answered=Object.keys(s.pans).length;
+    app.innerHTML='<h1>演習、おつかれさまでした</h1>'+
+      '<div class="card"><p>演習：'+answered+'問中 <b>'+right+'問</b>正解</p>'+
+      '<p><b>ここからミニテスト '+s.mids.length+'問（10分）</b></p>'+
+      '<p class="sub">答え合わせは最後にまとめて出ます。1問ずつ、落ち着いて答えましょう。</p>'+
+      '<button class="btn" id="ms">ミニテストを始める</button></div>'+
+      '<div class="footlinks"><span></span><button class="link" id="hm">ホームに戻る</button></div>';
+    document.getElementById("ms").onclick=function(){ s.mstart=true; save(); viewMini(); };
+    document.getElementById("hm").onclick=function(){ save(); viewHome(); };
+    return;
+  }
+  if(s.mi>=s.mids.length) return finishMini();
+  app.innerHTML=qHtml({label:"ミニテスト", ids:s.mids, ans:s.mans, i:s.mi, sec:s.ms, limit:LIM.mini, fb:false, perm:s.perm})+
+    '<div class="footlinks"><span></span><button class="link" id="hm">ホームに戻る</button></div>';
+  var id=s.mids[s.mi];
+  bindOpts(function(orig){
+    s.mans[id]=orig; markSeen(id,orig); s.mi++; save();
+    window.scrollTo(0,0); viewMini();
+  });
+  document.getElementById("hm").onclick=function(){ save(); viewHome(); };
+  startTimer();
+}
+
+function finishMini(){
+  var s=D.sess;
+  if(s.phase!=="result"){
+    var sc=countRight(s.mids, s.mans), tot=s.mids.length, d=D.dom[s.dom];
+    s.score=sc; s.total=tot;
+    d.t++; d.b=Math.max(d.b,sc);
+    if(sc/tot>=PASS){ d.s++; } else { d.s=0; }
+    if(d.s>=2 && !d.g){ d.g=true; s.newGrad=true; if(D.focus===s.dom) D.focus=null; }
+    D.log.push({t:Date.now(), dom:s.dom, score:sc, total:tot, reasons:[]});
+    s.logIdx=D.log.length-1;
+    s.phase="result"; save();
+  }
+  viewResult();
+}
+
+var REASONS=["知識が足りなかった","うろ覚えだった","問題文を読み違えた","ひっかけに引っかかった"];
+
+function viewResult(){
+  stopTimer();
+  var s=D.sess, d=D.dom[s.dom], pass=(s.score/s.total>=PASS);
+  var h='<h1>ミニテストの結果</h1><div class="card"><div class="tag">'+esc(DOM[s.dom])+'</div>'+
+        '<div class="score"><b>'+s.score+'</b><span> / '+s.total+'問</span></div>';
+  if(s.newGrad){
+    h+='<div class="grad-msg">🎓 「'+esc(DOM[s.dom])+'」を卒業しました</div><p class="sub" style="text-align:center">2回連続で80%以上。この分野は合格ラインを超えています。</p>';
+  }else if(pass){
+    h+='<p style="text-align:center"><b>80%を達成しました。</b>'+dots(d)+'</p><p class="sub" style="text-align:center">あと1回、別の問題で80%以上を出せば卒業です。</p>';
+  }else{
+    h+='<p style="text-align:center"><b>今日は80%に届きませんでした。</b></p><p class="sub" style="text-align:center">大丈夫です。間違えた問題を見直して、次回は別の問題でもう一度挑戦しましょう。</p>';
+  }
+  h+='</div>';
+
+  var wrong=s.mids.filter(function(id){ return s.mans[id]!==0; });
+  if(wrong.length){
+    h+='<details open><summary>間違えた問題を見直す（'+wrong.length+'問）</summary>';
+    wrong.forEach(function(id){
+      var q=Q[id];
+      h+='<div class="rv">'+esc(q.q)+'<br><span class="a">答え：'+esc(q.c[0])+'</span><br>'+esc(q.e)+'</div>';
+    });
+    h+='</details>';
+    h+='<h2>ふりかえり（5分）</h2><p class="sub">間違えた原因に近いものを選んでください（複数可・任意）。</p><div class="chips">';
+    REASONS.forEach(function(r,i){
+      h+='<button class="chip'+(s.reasons.indexOf(r)>=0?' on':'')+'" data-r="'+i+'">'+r+'</button>';
+    });
+    h+='</div>';
+  }else{
+    h+='<p class="sub">全問正解です。ふりかえりは不要です。</p>';
+  }
+  h+='<button class="btn" id="fn">記録して終える</button>';
+  app.innerHTML=h;
+  window.scrollTo(0,0);
+
+  var cs=app.querySelectorAll(".chip");
+  for(var k=0;k<cs.length;k++){
+    cs[k].onclick=function(){
+      var r=REASONS[parseInt(this.getAttribute("data-r"),10)], p=s.reasons.indexOf(r);
+      if(p>=0){ s.reasons.splice(p,1); this.className="chip"; } else { s.reasons.push(r); this.className="chip on"; }
+      save();
+    };
+  }
+  document.getElementById("fn").onclick=function(){
+    if(s.logIdx>=0 && D.log[s.logIdx]) D.log[s.logIdx].reasons=s.reasons.slice();
+    var L=["【覚えず受かるケアマネ試験｜今日の30分】","名前："+(D.name||"（未記入）"),
+           "分野："+DOM[s.dom],
+           "ミニテスト："+s.score+" / "+s.total+"問"+(pass?"（80%達成）":""),
+           (d.g?"状況：卒業":"状況：連続達成 "+Math.min(d.s,2)+"/2")];
+    if(s.reasons.length) L.push("間違いの原因："+s.reasons.join("、"));
+    L.push("卒業：" + gradCount() + " / 3分野");
+    D.last={text:L.join("\n"), next:nextStepText()};
+    D.sess=null; save(); viewDone();
+  };
+}
+
+function viewDone(){
+  stopTimer();
+  var h='<h1>今日の30分、おつかれさまでした</h1><div class="card"><p>'+esc(D.last?D.last.next:nextStepText())+'</p></div>'+
+        '<button class="btn" id="cp">今日の結果をコピーして進行役に送る</button>'+
+        '<div class="notice good hidden" id="cpok">コピーしました。チャットやメールに貼り付けて送ってください。</div>'+
+        '<button class="btn ghost" id="hm">ホームへ</button>';
+  app.innerHTML=h;
+  window.scrollTo(0,0);
+  document.getElementById("cp").onclick=function(){
+    copyText(D.last?D.last.text:progressText(), function(){ document.getElementById("cpok").className="notice good"; });
+  };
+  document.getElementById("hm").onclick=viewHome;
+}
+
+/* ---------- 総仕上げ ---------- */
+function startFinal(){
+  var ids=[];
+  for(var i=0;i<3;i++){ ids=ids.concat(pick(i,10,[],"mini")); }
+  ids=shuffle(ids);
+  var perm={}; ids.forEach(function(id){ perm[id]=mkp(id); });
+  D.sess={kind:"final", phase:"final", fids:ids, fans:{}, fi:0, perm:perm, fs:0};
+  save(); viewFinal();
+}
+function viewFinal(){
+  var s=D.sess;
+  if(s.fi>=s.fids.length) return finishFinal();
+  app.innerHTML=qHtml({label:"総仕上げ", ids:s.fids, ans:s.fans, i:s.fi, sec:s.fs, limit:LIM.final, fb:false, perm:s.perm})+
+    '<div class="footlinks"><span></span><button class="link" id="hm">ホームに戻る</button></div>';
+  var id=s.fids[s.fi];
+  bindOpts(function(orig){
+    s.fans[id]=orig; markSeen(id,orig); s.fi++; save();
+    window.scrollTo(0,0); viewFinal();
+  });
+  document.getElementById("hm").onclick=function(){ save(); viewHome(); };
+  startTimer();
+}
+function finishFinal(){
+  var s=D.sess;
+  if(s.phase!=="finalresult"){
+    var per=[0,0,0], cnt=[0,0,0];
+    s.fids.forEach(function(id){ var d=Q[id].d; cnt[d]++; if(s.fans[id]===0) per[d]++; });
+    D.final={t:Date.now(), per:per, cnt:cnt, total:per[0]+per[1]+per[2]};
+    s.phase="finalresult"; save();
+  }
+  viewFinalResult();
+}
+function viewFinalResult(){
+  stopTimer();
+  var F=D.final, h='<h1>総仕上げテストの結果</h1><div class="card"><div class="score"><b>'+F.total+'</b><span> / 30問</span>';
+  if(D.day1){
+    var diff=F.total-D.day1.total;
+    h+='<div class="sub">1日目は '+D.day1.total+'問 → '+F.total+'問（'+(diff>=0?'+':'')+diff+'問）</div>';
+  }
+  h+='</div>';
+  DOM.forEach(function(n,i){ h+=bar(n, F.per[i], F.cnt[i], D.day1?D.day1.per[i]:null); });
+  h+='<div class="legend">点線が「卒業ライン」80%</div></div>';
+  var low=[0,1,2].filter(function(i){ return F.per[i]/F.cnt[i]<PASS; });
+  h+='<div class="notice'+(low.length?'':' good')+'">'+
+     (low.length? '80%に届かなかった分野：'+low.map(function(i){return DOM[i];}).join('、')+'。ドリルでもう一度回せます。' : '全分野で80%以上です。この調子で本番に向かいましょう。')+'</div>';
+  h+='<button class="btn" id="cp">結果をコピーして進行役に送る</button>'+
+     '<div class="notice good hidden" id="cpok">コピーしました。チャットやメールに貼り付けて送ってください。</div>'+
+     '<button class="btn ghost" id="hm">ホームへ</button>';
+  app.innerHTML=h;
+  window.scrollTo(0,0);
+  document.getElementById("cp").onclick=function(){
+    var L=["【覚えず受かるケアマネ試験｜総仕上げテスト】","名前："+(D.name||"（未記入）"),
+           "総合："+F.total+" / 30問"+(D.day1?"（1日目 "+D.day1.total+"問）":"")];
+    DOM.forEach(function(n,i){ L.push(n+"："+F.per[i]+" / "+F.cnt[i]+"問"+(D.day1?"（1日目 "+D.day1.per[i]+"問）":"")); });
+    copyText(L.join("\n"), function(){ document.getElementById("cpok").className="notice good"; });
+  };
+  document.getElementById("hm").onclick=function(){ D.sess=null; save(); viewHome(); };
+}
+
+/* ---------- 起動 ---------- */
+document.addEventListener("visibilitychange", function(){ if(document.hidden && D) save(); });
+window.addEventListener("pagehide", function(){ if(D) save(); });
+
+D = ld(KEY);
+if(!D || !D.dom || (!D.order && day1())){ D = initD(); save(); }
+viewHome();
+
+})();
+</script>
+</body>
+</html>

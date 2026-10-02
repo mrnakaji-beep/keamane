@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>覚えず受かるケアマネ試験｜1日目 診断テスト</title>
+<style>
+:root{
+  --ink:#1c2733; --sub:#5a6775; --base:#f3f6f9; --card:#ffffff; --line:#d8e0e8;
+  --main:#2b5b86; --main-d:#1f4467; --ok:#2a7a55; --ok-bg:#e6f4ec;
+  --ng:#b3462f; --ng-bg:#fbeae6; --warn:#b9780f;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--base); color:var(--ink);
+  font-family:"Yu Gothic","YuGothic","Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+  font-size:16px; line-height:1.7; -webkit-text-size-adjust:100%;
+  padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+}
+.wrap{max-width:560px; margin:0 auto; padding:16px 16px 40px}
+h1{font-size:22px; line-height:1.4; margin:8px 0 4px}
+h2{font-size:18px; margin:24px 0 8px}
+p{margin:8px 0}
+.sub{color:var(--sub); font-size:14px}
+.card{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px}
+.facts{display:flex; gap:8px; margin:16px 0}
+.facts div{flex:1; background:var(--card); border:1px solid var(--line); border-radius:10px; padding:10px 6px; text-align:center}
+.facts b{display:block; font-size:22px; color:var(--main)}
+.facts span{font-size:12px; color:var(--sub)}
+label{display:block; font-size:14px; color:var(--sub); margin-bottom:4px}
+input[type=text]{width:100%; font:inherit; padding:12px; border:1px solid var(--line); border-radius:10px; background:#fff}
+button{font:inherit; cursor:pointer}
+.btn{display:block; width:100%; border:0; border-radius:12px; padding:14px; background:var(--main); color:#fff; font-weight:700; font-size:17px; margin-top:16px}
+.btn:active{background:var(--main-d)}
+.btn.ghost{background:#fff; color:var(--main); border:1px solid var(--main); font-weight:600; font-size:15px; padding:11px}
+.link{background:none; border:0; color:var(--sub); text-decoration:underline; font-size:13px; padding:8px 0; margin-top:8px}
+:focus-visible{outline:3px solid #f2b84b; outline-offset:2px}
+
+/* quiz */
+.top{position:sticky; top:0; background:var(--base); padding:10px 0 8px; z-index:2}
+.topline{display:flex; justify-content:space-between; align-items:baseline; font-size:14px; color:var(--sub)}
+.timer{font-variant-numeric:tabular-nums; font-weight:700; color:var(--ink); font-size:18px}
+.timer.over{color:var(--warn)}
+.bar{height:6px; background:var(--line); border-radius:3px; overflow:hidden; margin-top:6px}
+.bar i{display:block; height:100%; background:var(--main); width:0; transition:width .25s}
+.tag{display:inline-block; font-size:12px; color:var(--main); background:#e5eef6; border-radius:6px; padding:1px 8px; margin-bottom:6px}
+.q{font-size:18px; font-weight:700; line-height:1.6; margin:4px 0 14px}
+.opt{display:block; width:100%; text-align:left; background:#fff; border:1.5px solid var(--line); border-radius:12px; padding:13px 14px; margin-bottom:10px; color:var(--ink); line-height:1.55}
+.opt:active{background:#eef3f8}
+.opt.right{border-color:var(--ok); background:var(--ok-bg)}
+.opt.wrong{border-color:var(--ng); background:var(--ng-bg)}
+.opt[disabled]{cursor:default}
+.fb{border-radius:12px; padding:12px 14px; margin-top:6px; font-size:15px}
+.fb.ok{background:var(--ok-bg); border:1px solid #b7dcc6}
+.fb.ng{background:var(--ng-bg); border:1px solid #efc4ba}
+.fb strong{display:block; margin-bottom:2px}
+.notice{background:#fff6e0; border:1px solid #f0d9a0; border-radius:10px; padding:8px 12px; font-size:14px; margin:8px 0}
+
+/* result */
+.score{text-align:center; padding:8px 0 4px}
+.score b{font-size:44px; color:var(--main); line-height:1.1}
+.score span{font-size:18px; color:var(--sub)}
+.dom{margin:14px 0}
+.dom .row{display:flex; justify-content:space-between; font-size:15px; font-weight:700}
+.track{position:relative; height:14px; background:#e6ecf2; border-radius:7px; margin-top:6px}
+.track i{position:absolute; left:0; top:0; bottom:0; border-radius:7px; background:var(--main)}
+.track i.low{background:var(--warn)}
+.track u{position:absolute; top:-4px; bottom:-4px; left:80%; border-left:2px dashed var(--ok)}
+.legend{font-size:12px; color:var(--sub); text-align:right; margin-top:4px}
+.focus{background:#e9f1f8; border:1px solid #c5d8e8; border-radius:12px; padding:14px; margin-top:16px}
+.focus b{color:var(--main-d)}
+details{background:#fff; border:1px solid var(--line); border-radius:10px; padding:10px 14px; margin-top:10px}
+summary{cursor:pointer; font-weight:700}
+.rv{border-top:1px solid var(--line); padding:10px 0; font-size:14px}
+.rv:first-of-type{border-top:0}
+.rv .a{color:var(--ok); font-weight:700}
+.hidden{display:none}
+textarea.copybox{position:absolute; left:-9999px}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+
+<script>
+(function(){
+"use strict";
+
+var DOMAINS = ["介護保険・制度","保健医療","福祉・権利擁護"];
+var TOTAL_SEC = 30*60;
+var KEY = "keamane10_day1_v1";
+
+// d: 分野, q: 問題, c: 選択肢(先頭が正解), e: 解説
+var Q = [
+ // 0 介護保険・制度
+ {d:0,q:"介護保険の第1号被保険者の年齢要件は？",c:["65歳以上","60歳以上","40歳以上","75歳以上"],e:"第1号被保険者は65歳以上、第2号被保険者は40歳以上65歳未満の医療保険加入者です。"},
+ {d:0,q:"第2号被保険者（40〜64歳）が要介護認定を受けられるのは？",c:["加齢に伴う特定疾病が原因の場合","原因を問わず、心身の状態が悪くなった場合","身体障害者手帳を持っている場合","生活保護を受けている場合"],e:"第2号は、特定疾病（16疾病）が原因の場合に限り給付の対象になります。"},
+ {d:0,q:"要介護認定の申請に対する処理期間は、原則として申請から何日以内？",c:["30日以内","7日以内","14日以内","60日以内"],e:"申請日から30日以内に処理するのが原則です。"},
+ {d:0,q:"新規認定の有効期間は、原則として何か月？",c:["6か月","3か月","12か月","24か月"],e:"新規認定は原則6か月（市町村が必要と認める場合は3〜12か月の範囲）です。"},
+ {d:0,q:"区分支給限度基準額の対象とならないサービスは？",c:["居宅療養管理指導","訪問介護","通所介護","短期入所生活介護"],e:"居宅療養管理指導、居宅介護支援、福祉用具購入、住宅改修などは対象外です。"},
+ {d:0,q:"居宅介護支援（ケアプラン作成）の利用者負担は？",c:["なし（全額保険給付）","1割","2割","3割"],e:"居宅介護支援は利用者負担がなく、全額が保険給付です。"},
+ {d:0,q:"住宅改修の支給限度基準額は、同一住宅で原則いくら？",c:["20万円","10万円","30万円","50万円"],e:"原則20万円が限度で、その範囲の費用の7〜9割が支給されます。"},
+ {d:0,q:"居宅介護支援のモニタリングは、特段の事情がない限りどの頻度で行う？",c:["少なくとも1月に1回、利用者の居宅を訪問して面接","3か月に1回","6か月に1回","1年に1回"],e:"少なくとも1月に1回、居宅を訪問して面接し、結果を記録します（一定の要件でテレビ電話等を活用できる特例あり）。"},
+ {d:0,q:"地域包括支援センターの業務「ではない」ものは？",c:["要介護認定の審査判定","総合相談支援","権利擁護","包括的・継続的ケアマネジメント支援"],e:"審査判定は、市町村に置かれる介護認定審査会の役割です。"},
+ {d:0,q:"介護支援専門員証の有効期間は？",c:["5年","3年","7年","10年"],e:"有効期間は5年で、更新には更新研修の修了が必要です。"},
+ // 1 保健医療
+ {d:1,q:"成人の安静時の脈拍数の目安は？",c:["1分間に60〜100回","1分間に30〜50回","1分間に110〜130回","1分間に140〜160回"],e:"成人の正常な脈拍は1分間に60〜100回程度です。"},
+ {d:1,q:"仰臥位（あおむけ）で褥瘡ができやすい部位は？",c:["仙骨部","腹部","膝蓋部（ひざのお皿）","大腿前面"],e:"あおむけでは仙骨部、後頭部、肩甲骨部、踵などの骨が出ている部位にできやすくなります。"},
+ {d:1,q:"誤嚥性肺炎の予防に有効なのは？",c:["口腔ケアの徹底","食事中は仰向けの姿勢にする","一度に多くの量を口に入れる","水分は一切とらない"],e:"口の中の細菌を減らす口腔ケアは、誤嚥性肺炎の予防に有効です。"},
+ {d:1,q:"糖尿病の三大合併症「ではない」ものは？",c:["肝硬変","網膜症","腎症","神経障害"],e:"三大合併症は、網膜症・腎症・神経障害です。"},
+ {d:1,q:"糖尿病治療中の高齢者が、冷や汗・手の震え・動悸を訴えた。まず疑うのは？",c:["低血糖","高血糖","骨折","難聴"],e:"低血糖の典型的な症状です。意識があればブドウ糖などの糖分を摂取し、意識がなければ救急要請します。"},
+ {d:1,q:"認知症の「中核症状」に当てはまるのは？",c:["記憶障害","徘徊","幻覚","抑うつ"],e:"中核症状は記憶障害・見当識障害・実行機能障害など。徘徊・幻覚・抑うつは行動・心理症状（BPSD）です。"},
+ {d:1,q:"訪問看護を利用するために必要なものは？",c:["主治医の訪問看護指示書","ケアマネジャーの依頼書のみ","市町村の許可証","薬剤師の指示書"],e:"訪問看護は、主治医が交付する訪問看護指示書に基づいて行われます。"},
+ {d:1,q:"心不全の悪化を疑うサインは？",c:["数日での急な体重増加とむくみ","体重の緩やかな減少","血圧が少し下がった","食欲の増加"],e:"体液がたまるため、急な体重増加、むくみ、息切れが悪化のサインです。"},
+ {d:1,q:"COPD（慢性閉塞性肺疾患）の最大の原因は？",c:["喫煙","飲酒","塩分の摂りすぎ","運動不足"],e:"長期間の喫煙が最大の原因です。"},
+ {d:1,q:"心房細動が原因で起こりやすい脳卒中は？",c:["心原性脳塞栓症","脳出血","ラクナ梗塞","くも膜下出血"],e:"心臓内にできた血栓が脳血管をふさぐのが心原性脳塞栓症で、重症になりやすいのが特徴です。"},
+ // 2 福祉・権利擁護
+ {d:2,q:"成年後見制度で、判断能力が最も不十分な人が対象となる類型は？",c:["後見","保佐","補助","任意後見"],e:"判断能力の不十分さが重い順に、後見・保佐・補助です。"},
+ {d:2,q:"日常生活自立支援事業の実施主体は？",c:["都道府県社会福祉協議会","市町村","民生委員","地域包括支援センター"],e:"実施主体は都道府県社会福祉協議会（指定都市を含む）で、市区町村の社協等が窓口を担います。"},
+ {d:2,q:"生活保護を受けている人の、介護保険サービスの利用者負担分は原則として何で賄う？",c:["介護扶助","医療扶助","生活扶助","住宅扶助"],e:"介護保険サービスの利用者負担分は、生活保護の介護扶助でまかなわれます。"},
+ {d:2,q:"障害福祉サービスを使っていた人が65歳になった。同種の介護保険サービスがある場合、原則は？",c:["介護保険サービスが優先","障害福祉サービスが優先","両方を全額利用できる","どちらも利用できなくなる"],e:"障害者総合支援法では介護保険優先が原則です（必要に応じて障害福祉サービスを上乗せ・併用できる場合があります）。"},
+ {d:2,q:"同じ月の利用者負担が上限額を超えたとき、超えた分が払い戻される制度は？",c:["高額介護サービス費","高額療養費","特定入所者介護サービス費","居宅介護サービス費"],e:"介護サービスの利用者負担が月の上限を超えた分は、高額介護サービス費として支給されます。"},
+ {d:2,q:"養護者による高齢者虐待で、生命・身体に重大な危険がある場合の通報先は？",c:["市町村","都道府県","社会福祉協議会","警察のみ"],e:"通報先は市町村です（地域包括支援センターなどが窓口になります）。"},
+ {d:2,q:"特定福祉用具販売（購入）の対象は？",c:["腰掛便座","車いす","特殊寝台","歩行器"],e:"腰掛便座や入浴補助用具など、肌に直接触れるものは販売の対象です。車いす・特殊寝台・歩行器は貸与です。"},
+ {d:2,q:"特別養護老人ホーム（介護老人福祉施設）に新規入所できるのは、原則どの要介護度から？",c:["要介護3以上","要介護1以上","要介護2以上","要介護5のみ"],e:"原則は要介護3以上です（やむを得ない事情がある場合は要介護1・2でも特例入所あり）。"},
+ {d:2,q:"民生委員を委嘱するのは？",c:["厚生労働大臣","都道府県知事","市町村長","社会福祉協議会長"],e:"民生委員は厚生労働大臣が委嘱し、児童委員を兼ねます。"},
+ {d:2,q:"地域密着型サービス事業者を指定するのは？",c:["市町村長","都道府県知事","厚生労働大臣","国民健康保険団体連合会"],e:"地域密着型サービスは、市町村長が事業者を指定します。"}
+];
+
+var app = document.getElementById("app");
+var S = null;
+var timerId = null;
+
+function load(){
+  try{ var s = localStorage.getItem(KEY); if(s){ return JSON.parse(s);} }catch(e){}
+  return null;
+}
+function save(){
+  try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){}
+}
+function clearSave(){
+  try{ localStorage.removeItem(KEY); }catch(e){}
+}
+function shuffle(a){
+  a = a.slice();
+  for(var i=a.length-1;i>0;i--){
+    var j = Math.floor(Math.random()*(i+1));
+    var t=a[i]; a[i]=a[j]; a[j]=t;
+  }
+  return a;
+}
+function esc(s){
+  return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});
+}
+function mmss(sec){
+  var m = Math.floor(sec/60), s = sec%60;
+  return (m<10?"0":"")+m+":"+(s<10?"0":"")+s;
+}
+
+function newState(name){
+  var order = shuffle(Q.map(function(_,i){return i;}));
+  var perms = {};
+  Q.forEach(function(q,i){ perms[i] = shuffle(q.c.map(function(_,k){return k;})); });
+  return {name:name, order:order, perms:perms, ans:{}, i:0, sec:0, phase:"quiz"};
+}
+
+/* ---------- 画面 ---------- */
+function viewIntro(){
+  stopTimer();
+  app.innerHTML =
+    '<p class="sub" style="margin:0"><a href="index.html" style="color:inherit">← 入口ページ</a></p><h1>覚えず受かるケアマネ試験<br>1日目：診断テスト</h1>'+
+    '<p class="sub">今日の目的は、点数を取ることではなく「自分の伸びしろ」を見つけることです。</p>'+
+    '<div class="facts"><div><b>30問</b><span>3分野×10問</span></div><div><b>30分</b><span>1日目はこれだけ</span></div><div><b>スマホ</b><span>登録・ログイン不要</span></div></div>'+
+    '<div class="card">'+
+      '<label for="nm">お名前（結果を送るときに使います）</label>'+
+      '<input type="text" id="nm" autocomplete="name" placeholder="例：山田 花子">'+
+      '<button class="btn" id="go">30分を始める</button>'+
+    '</div>'+
+    '<h2>進め方</h2>'+
+    '<p>1問ずつ答えると、すぐ正解と解説が出ます。途中で閉じても、続きから再開できます。時間は画面を開いている間だけ進みます。</p>'+
+    '<p>終わると、分野ごとの正答率と「2日目から取り組む分野」が出ます。</p>';
+  document.getElementById("go").onclick = function(){
+    var nm = document.getElementById("nm").value.trim();
+    S = newState(nm);
+    save();
+    viewQuiz();
+  };
+}
+
+function currentQ(){
+  var qi = S.order[S.i];
+  return {qi:qi, q:Q[qi], perm:S.perms[qi]};
+}
+
+function viewQuiz(){
+  if(S.i >= Q.length){ S.phase="result"; save(); return viewResult(); }
+  var cq = currentQ();
+  var answered = (S.ans[cq.qi] !== undefined);
+  var rem = Math.max(0, TOTAL_SEC - S.sec);
+
+  var h = '<div class="top"><div class="topline"><span>第 '+(S.i+1)+' 問 / '+Q.length+'</span>'+
+          '<span>残り <span class="timer'+(rem===0?' over':'')+'" id="tm">'+mmss(rem)+'</span></span></div>'+
+          '<div class="bar"><i style="width:'+(((S.i)/Q.length)*100)+'%"></i></div></div>';
+  if(rem===0){
+    h += '<div class="notice">30分になりました。区切りのよいところまで続けても、ここで終えても大丈夫です。</div>';
+  }
+  h += '<span class="tag">'+esc(DOMAINS[cq.q.d])+'</span><div class="q">'+esc(cq.q.q)+'</div>';
+  cq.perm.forEach(function(orig, pos){
+    var cls = "opt";
+    if(answered){
+      if(orig===0) cls += " right";
+      else if(S.ans[cq.qi]===orig) cls += " wrong";
+    }
+    h += '<button class="'+cls+'" data-o="'+orig+'"'+(answered?' disabled':'')+'>'+esc(cq.q.c[orig])+'</button>';
+  });
+  if(answered){
+    var ok = (S.ans[cq.qi]===0);
+    h += '<div class="fb '+(ok?'ok':'ng')+'"><strong>'+(ok?'正解':'不正解')+'</strong>'+esc(cq.q.e)+'</div>';
+    h += '<button class="btn" id="nx">'+(S.i===Q.length-1?'結果を見る':'次の問題へ')+'</button>';
+  }
+  app.innerHTML = h;
+
+  if(!answered){
+    var btns = app.querySelectorAll(".opt");
+    for(var k=0;k<btns.length;k++){
+      btns[k].onclick = function(){
+        S.ans[cq.qi] = parseInt(this.getAttribute("data-o"),10);
+        save();
+        viewQuiz();
+        var fb = app.querySelector(".fb");
+        if(fb && fb.scrollIntoView){ fb.scrollIntoView({block:"nearest", behavior:"smooth"}); }
+      };
+    }
+  }else{
+    document.getElementById("nx").onclick = function(){
+      S.i++; save();
+      window.scrollTo(0,0);
+      viewQuiz();
+    };
+  }
+  startTimer();
+}
+
+function startTimer(){
+  if(timerId) return;
+  timerId = setInterval(function(){
+    if(!S || S.phase!=="quiz" || document.hidden) return;
+    S.sec++;
+    var el = document.getElementById("tm");
+    var rem = Math.max(0, TOTAL_SEC - S.sec);
+    if(el){
+      el.textContent = mmss(rem);
+      if(rem===0){
+        el.className = "timer over";
+        if(!app.querySelector(".notice")){
+          var n = document.createElement("div");
+          n.className = "notice";
+          n.textContent = "30分になりました。区切りのよいところまで続けても、ここで終えても大丈夫です。";
+          var top = app.querySelector(".top");
+          if(top && top.parentNode){ top.parentNode.insertBefore(n, top.nextSibling); }
+        }
+      }
+    }
+    if(S.sec % 5 === 0) save();
+  }, 1000);
+}
+function stopTimer(){ if(timerId){ clearInterval(timerId); timerId=null; } }
+
+function calc(){
+  var per = [0,0,0], cnt=[0,0,0], total=0;
+  Q.forEach(function(q,i){ cnt[q.d]++; if(S.ans[i]===0){ per[q.d]++; total++; } });
+  return {per:per, cnt:cnt, total:total};
+}
+
+function resultText(r, order){
+  var lines = [];
+  lines.push("【覚えず受かるケアマネ試験｜1日目 診断テスト】");
+  lines.push("名前：" + (S.name || "（未記入）"));
+  lines.push("総合：" + r.total + " / " + Q.length + "問（" + Math.round(r.total/Q.length*100) + "%）");
+  DOMAINS.forEach(function(d,i){
+    lines.push(d + "：" + r.per[i] + " / " + r.cnt[i] + "問（" + Math.round(r.per[i]/r.cnt[i]*100) + "%）");
+  });
+  var weak = order.filter(function(i){ return r.per[i]/r.cnt[i] < 0.8; });
+  lines.push("2日目からの重点：" + (weak.length ? weak.map(function(i){return DOMAINS[i];}).join(" → ") : "全分野8割以上（本番形式で仕上げ）"));
+  lines.push("所要時間：約" + Math.max(1, Math.round(S.sec/60)) + "分");
+  return lines.join("\n");
+}
+
+function viewResult(){
+  stopTimer();
+  var r = calc();
+  var idx = [0,1,2].sort(function(a,b){ return (r.per[a]/r.cnt[a]) - (r.per[b]/r.cnt[b]); });
+  var pctAll = Math.round(r.total/Q.length*100);
+
+  var h = '<h1>1日目、おつかれさまでした</h1>'+
+          '<div class="card"><div class="score"><b>'+r.total+'</b><span> / '+Q.length+'問</span><div class="sub">正答率 '+pctAll+'%　所要時間 約'+Math.max(1,Math.round(S.sec/60))+'分</div></div>';
+  DOMAINS.forEach(function(d,i){
+    var p = Math.round(r.per[i]/r.cnt[i]*100);
+    h += '<div class="dom"><div class="row"><span>'+esc(d)+'</span><span>'+r.per[i]+' / '+r.cnt[i]+'（'+p+'%）</span></div>'+
+         '<div class="track"><i class="'+(p<80?'low':'')+'" style="width:'+p+'%"></i><u></u></div></div>';
+  });
+  h += '<div class="legend">点線が「卒業ライン」80%</div></div>';
+
+  var weak = idx.filter(function(i){ return r.per[i]/r.cnt[i] < 0.8; });
+  h += '<div class="focus">';
+  if(weak.length){
+    h += '<p style="margin-top:0"><b>2日目からの重点分野</b></p><p style="margin:4px 0">';
+    weak.forEach(function(i,n){ h += (n+1)+'. '+esc(DOMAINS[i])+'<br>'; });
+    h += '</p><p class="sub" style="margin-bottom:0">ここから先は、この順番で「演習15分 → ミニテスト10分 → ふりかえり5分」を回します。ミニテストで2回連続80%を出せば、その分野は卒業です。</p>';
+  }else{
+    h += '<p style="margin:0"><b>全分野が80%以上です。</b>2日目からは、間違えた問題と本番形式の問題で仕上げに入りましょう。</p>';
+  }
+  h += '</div>';
+
+  h += '<button class="btn" id="cp">結果をコピーして進行役に送る</button>'+
+       '<div class="notice hidden" id="cpok">コピーしました。チャットやメールに貼り付けて送ってください。</div>';
+
+  var wrongs = [];
+  S.order.forEach(function(qi){ if(S.ans[qi]!==undefined && S.ans[qi]!==0){ wrongs.push(qi); } });
+  var skipped = S.order.filter(function(qi){ return S.ans[qi]===undefined; });
+  if(wrongs.length || skipped.length){
+    h += '<details><summary>間違えた問題を見直す（'+(wrongs.length+skipped.length)+'問）</summary>';
+    wrongs.concat(skipped).forEach(function(qi){
+      var q = Q[qi];
+      h += '<div class="rv"><span class="tag">'+esc(DOMAINS[q.d])+'</span><br>'+esc(q.q)+
+           '<br><span class="a">答え：'+esc(q.c[0])+'</span><br>'+esc(q.e)+'</div>';
+    });
+    h += '</details>';
+  }
+  h += '<button class="link" id="rs">最初からやり直す</button>';
+  app.innerHTML = h;
+  window.scrollTo(0,0);
+
+  document.getElementById("cp").onclick = function(){
+    var txt = resultText(r, idx);
+    var done = function(){ document.getElementById("cpok").className = "notice"; };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(done, function(){ fallbackCopy(txt); done(); });
+    }else{ fallbackCopy(txt); done(); }
+  };
+  document.getElementById("rs").onclick = function(){
+    if(confirm("記録を消して最初からやり直します。よろしいですか？")){
+      clearSave(); S=null; viewIntro();
+    }
+  };
+}
+
+function fallbackCopy(txt){
+  var ta = document.createElement("textarea");
+  ta.className = "copybox"; ta.value = txt;
+  document.body.appendChild(ta);
+  ta.select();
+  try{ document.execCommand("copy"); }catch(e){}
+  document.body.removeChild(ta);
+}
+
+/* ---------- 起動 ---------- */
+document.addEventListener("visibilitychange", function(){ if(document.hidden && S){ save(); } });
+window.addEventListener("pagehide", function(){ if(S){ save(); } });
+
+S = load();
+if(S && S.phase==="result"){ viewResult(); }
+else if(S && S.order && S.phase==="quiz"){ viewQuiz(); }
+else{ S=null; viewIntro(); }
+
+})();
+</script>
+</body>
+</html>

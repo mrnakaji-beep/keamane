@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>覚えず受かるケアマネ試験</title>
+<style>
+:root{--ink:#1c2733;--sub:#5a6775;--base:#f3f6f9;--card:#fff;--line:#d8e0e8;--main:#2b5b86;--main-d:#1f4467;--ok:#2a7a55;--ok-bg:#e6f4ec}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--base);color:var(--ink);font-family:"Yu Gothic","YuGothic","Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;font-size:16px;line-height:1.7;-webkit-text-size-adjust:100%;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+.wrap{max-width:560px;margin:0 auto;padding:20px 16px 48px}
+h1{font-size:26px;line-height:1.35;margin:8px 0 4px;color:var(--main-d)}
+h2{font-size:17px;margin:26px 0 8px}
+p{margin:8px 0}
+.sub{color:var(--sub);font-size:14px}
+.today{background:var(--card);border:2px solid var(--main);border-radius:14px;padding:16px;margin-top:16px}
+.today .lb{font-size:13px;color:var(--main);font-weight:700}
+.today .tt{font-size:20px;font-weight:700;line-height:1.4;margin:2px 0}
+.go{display:block;text-align:center;text-decoration:none;background:var(--main);color:#fff;font-weight:700;font-size:17px;border-radius:12px;padding:14px;margin-top:12px}
+.go:active{background:var(--main-d)}
+.item{display:block;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-top:10px}
+.item:active{background:#eef3f8}
+.item b{display:block;font-size:16.5px}
+.item small{display:block;color:var(--sub);font-size:13.5px;line-height:1.5}
+.item .st{float:right;font-size:12.5px;font-weight:700;color:var(--main);margin-left:8px}
+.item.done{background:var(--ok-bg);border-color:#b7dcc6}
+.item.done .st{color:var(--ok)}
+ol.flow{padding-left:20px;margin:6px 0;font-size:15px}
+ol.flow li{margin:3px 0}
+:focus-visible{outline:3px solid #f2b84b;outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>覚えず受かる<br>ケアマネ試験</h1>
+<p class="sub">集中10日間・毎日30分。丸暗記ではなく、「理由」と「ひっかけの型」で解けるようになります。</p>
+
+<div class="today" id="today"></div>
+
+<h2>3つのメニュー</h2>
+<div id="menu"></div>
+
+<h2>10日間の流れ</h2>
+<ol class="flow">
+<li><b>1日目</b>：診断テスト30問で、重点分野を決める</li>
+<li><b>2〜9日目</b>：毎日30分ドリル（5日目・9日目は追いつき日）</li>
+<li><b>10日目</b>：総仕上げテストで、1日目からの伸びを確かめる</li>
+<li><b>いつでも</b>：ひっかけ対策で、読み違いを減らす</li>
+</ol>
+<p class="sub">記録はこの端末・このブラウザに保存されます。機種変更やブラウザを変えると、引き継がれません。</p>
+</div>
+
+<script>
+(function(){
+"use strict";
+var DOM=["介護保険・制度","保健医療","福祉・権利擁護"];
+function ld(k){ try{ var s=localStorage.getItem(k); return s?JSON.parse(s):null; }catch(e){ return null; } }
+function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+function sameDay(a,b){ var x=new Date(a),y=new Date(b); return x.getFullYear()===y.getFullYear()&&x.getMonth()===y.getMonth()&&x.getDate()===y.getDate(); }
+
+var d1=ld("keamane10_day1_v1"), dr=ld("keamane10_drill_v1"), hk=ld("keamane10_hikkake_v1");
+var d1n=0; if(d1&&d1.ans){ for(var k in d1.ans){ if(d1.ans.hasOwnProperty(k)) d1n++; } }
+var d1done=(d1n>=30);
+var d1total=0; if(d1done){ for(var i=0;i<30;i++){ if(d1.ans[i]===0) d1total++; } }
+
+var grad=0, focus=-1, todayDone=false, drillSess=false;
+if(dr&&dr.dom){
+  grad=dr.dom.filter(function(x){return x.g;}).length;
+  drillSess=!!dr.sess;
+  todayDone=(dr.log||[]).some(function(l){return sameDay(l.t,Date.now());});
+  if(dr.order){
+    if(dr.focus!==null&&dr.focus!==undefined&&!dr.dom[dr.focus].g) focus=dr.focus;
+    else{ for(var j=0;j<dr.order.length;j++){ if(!dr.dom[dr.order[j]].g){ focus=dr.order[j]; break; } } }
+  }
+}
+var hkn=(hk&&hk.n)?hk.n:0;
+
+var t=document.getElementById("today"), h="";
+if(!d1done){
+  var inprog=(d1&&d1.phase==="quiz"&&d1n>0);
+  h='<div class="lb">今日やること</div><div class="tt">'+(inprog?'1日目の診断テストの続き':'1日目：診断テスト（30分）')+'</div>'+
+    '<p class="sub" style="margin:2px 0 0">30問で、あなたの重点分野が決まります。</p>'+
+    '<a class="go" href="keamane-day1-shindan.html">'+(inprog?'続きから再開する':'診断テストを始める')+'</a>';
+}else if(focus===-1 && dr && dr.order){
+  h='<div class="lb">今日やること</div><div class="tt">🎓 3分野すべて卒業です</div>'+
+    '<p class="sub" style="margin:2px 0 0">総仕上げテストで、1日目からの伸びを確かめましょう。</p>'+
+    '<a class="go" href="keamane-drill.html">総仕上げテストへ</a>';
+}else{
+  h='<div class="lb">今日やること</div><div class="tt">'+(drillSess?'毎日30分ドリルの続き':'毎日30分ドリル')+'</div>'+
+    '<p class="sub" style="margin:2px 0 0">'+(focus>=0?'今日の分野：'+esc(DOM[focus])+'　':'')+'卒業 '+grad+' / 3分野'+(todayDone?'　（今日の分は完了済み）':'')+'</p>'+
+    '<a class="go" href="keamane-drill.html">'+(drillSess?'続きから再開する':(todayDone?'もう1セット始める':'今日の30分を始める'))+'</a>';
+}
+t.innerHTML=h;
+
+var m='';
+m+='<a class="item'+(d1done?' done':'')+'" href="keamane-day1-shindan.html"><span class="st">'+(d1done?'完了 '+d1total+'/30問':'1日目')+'</span><b>① 1日目：診断テスト</b><small>30問・30分。3分野の正答率と、重点分野が分かります。</small></a>';
+m+='<a class="item'+(grad>=3?' done':'')+'" href="keamane-drill.html"><span class="st">'+(dr&&dr.order?'卒業 '+grad+'/3':'2日目〜')+'</span><b>② 毎日30分ドリル</b><small>演習15分→ミニテスト10分→ふりかえり5分。2回連続80%で卒業。10日目の総仕上げもここです。</small></a>';
+m+='<a class="item" href="keamane-hikkake.html"><span class="st">'+(hkn?'累計 '+hkn+'問':'いつでも')+'</span><b>③ ひっかけ対策問題集</b><small>8つの型と24問。10問なら約10分です。</small></a>';
+document.getElementById("menu").innerHTML=m;
+})();
+</script>
+</body>
+</html>
