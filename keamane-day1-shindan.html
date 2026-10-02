@@ -33,6 +33,7 @@ input[type=text]{width:100%; font:inherit; padding:12px; border:1px solid var(--
 button{font:inherit; cursor:pointer}
 .btn{display:block; width:100%; border:0; border-radius:12px; padding:14px; background:var(--main); color:#fff; font-weight:700; font-size:17px; margin-top:16px}
 .btn:active{background:var(--main-d)}
+a.btn{text-align:center;text-decoration:none}
 .btn.ghost{background:#fff; color:var(--main); border:1px solid var(--main); font-weight:600; font-size:15px; padding:11px}
 .link{background:none; border:0; color:var(--sub); text-decoration:underline; font-size:13px; padding:8px 0; margin-top:8px}
 :focus-visible{outline:3px solid #f2b84b; outline-offset:2px}
@@ -327,6 +328,8 @@ function viewResult(){
     });
     h += '</details>';
   }
+  h += '<a class="btn" href="keamane-drill.html">2日目からの毎日30分ドリルへ進む</a>'+
+       '<a class="btn ghost" href="index.html" style="display:block;text-align:center;text-decoration:none">入口ページへ戻る</a>';
   h += '<button class="link" id="rs">最初からやり直す</button>';
   app.innerHTML = h;
   window.scrollTo(0,0);
